@@ -11,7 +11,7 @@ export default function filePsrse(path: string): any {
   const file = readFileSync(realpathSync(path)).toString();
   let data: any;
   switch (ext) {
-    case '.js':
+    case '.json':
       data = parse(file);
       break;
     case '.yml':
