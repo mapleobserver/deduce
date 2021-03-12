@@ -18,12 +18,14 @@ jobs:
           node-version: 14
           check-latest: true
 
+      - name: Install
+        run: yarn --frozen-lockfile
+      - name: Lint test
+        run: yarn lint
+      - name: Build test
+        run: yarn build
       - name: Make coverage
-        run: |
-          yarn --frozen-lockfile
-          yarn lint
-          yarn test:cover
-          yarn build
+        run: yarn test:cover
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@master
