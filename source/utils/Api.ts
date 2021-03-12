@@ -5,11 +5,11 @@ import { Servers } from '../types/Api';
 class Api {
   static async getServer(num: number): Promise<string | null> {
     const response = await axios.get('http://game.wsmud.com/Game/GetServer');
-    if (response.status !== 200) {
+    if (response.status !== 200 || num < 0 || num >= response.data.length) {
       return null;
     }
-    const server: Servers = response.data;
-    const serverInfo = server[num - 1];
+    const servers: Servers = response.data;
+    const serverInfo = servers[num - 1];
     return `ws://${serverInfo.IP}:${serverInfo.Port}`;
   }
 
