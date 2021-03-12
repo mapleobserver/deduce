@@ -5,6 +5,7 @@ import { UserConfig } from './types/Config';
 import Api from './utils/Api';
 import eventList from './events';
 import Player from './types/Player';
+import fileParse from './utils/fileParse';
 
 export default class Deduce implements DeduceInterface {
   public logger: LoggerInterface = new Logger();
@@ -19,8 +20,8 @@ export default class Deduce implements DeduceInterface {
 
   public socket?: SocketInterface;
 
-  constructor(options: UserConfig) {
-    this.config = options;
+  constructor(configFile: string) {
+    this.config = fileParse(configFile);
     this.login();
   }
 
@@ -35,6 +36,10 @@ export default class Deduce implements DeduceInterface {
     this.logger.log(`获取用户登陆凭证成功：${token}。`);
     this.socket = new Socket({ wsUrl, token });
     this.loadEvents();
+  }
+
+  public reLogin(): void {
+    this.login();
   }
 
   private loadEvents(): void {

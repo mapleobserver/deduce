@@ -7,6 +7,7 @@ import items from './items';
 import pack from './pack';
 import status from './status';
 import tip from './tip';
+import error from './error';
 
 const eventList: {
   [key: string]: Event;
@@ -19,6 +20,7 @@ const eventList: {
   status,
   dialog,
   tip,
+  error,
 };
 
 export default eventList;
