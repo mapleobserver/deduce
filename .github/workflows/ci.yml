@@ -1,0 +1,29 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: 14
+          check-latest: true
+
+      - name: Make coverage
+        run: |
+          yarn --frozen-lockfile
+          yarn lint
+          yarn test:cover
+          yarn build
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@master
