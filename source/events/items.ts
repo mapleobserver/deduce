@@ -1,13 +1,15 @@
 import { DeduceInterface } from '../types/System';
-import { MessageMap } from '../types/Message';
+import { BaseRoomItem, MessageMap } from '../types/Message';
 
 export default (deduce: DeduceInterface) => (data: MessageMap['items']): void => {
-  data.items.forEach((item) => {
-    deduce.player.items.set(item.name, item.id);
-    if (deduce.player.id === item.id) {
-      item.status?.forEach((statu) => {
-        deduce.player.status.add(statu.sid);
+  const { player } = deduce;
+  const newRoomList = data.items.map((item: BaseRoomItem) => {
+    if (player.id === item.id && item.status) {
+      item.status.forEach((statu) => {
+        player.status.add(statu.sid);
       });
     }
+    return { id: item.id, name: item.name };
   });
+  player.roomItems = newRoomList;
 };

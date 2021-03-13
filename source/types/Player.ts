@@ -1,9 +1,9 @@
-import { BasePackItem } from './Message';
+import { BasePackItem, BaseRoomItem } from './Message';
 
 export default interface Player {
   id?: string;
   pot?: number;
-  pack: Array<BasePackItem>;
+  packList: Array<BasePackItem>;
   status: Set<string>;
-  items: Map<string, string>;
+  roomItems: Array<BaseRoomItem>;
 }

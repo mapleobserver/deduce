@@ -24,6 +24,22 @@ export interface BasePackItem {
   can_study?: number;
 }
 
+export interface BaseRoomItem {
+  id: string;
+  p?: number;
+  name: string;
+  mp?: number;
+  hp?: number;
+  max_mp?: number;
+  max_hp?: number;
+  status?: Array<{
+    sid: string;
+    name: string;
+    duration: number;
+    overtime: number;
+  }>;
+}
+
 export interface Roles extends BaseType {
   type: 'roles';
   roles: Array<{
@@ -43,21 +59,7 @@ export interface Login extends BaseType {
 
 export interface Items extends BaseType {
   type: 'items';
-  items: Array<{
-    id: string;
-    p?: number;
-    name: string;
-    mp?: number;
-    hp?: number;
-    max_mp?: number;
-    max_hp?: number;
-    status?: Array<{
-      sid: string;
-      name: string;
-      duration: number;
-      overtime: number;
-    }>;
-  }>;
+  items: Array<BaseRoomItem>;
 }
 
 export interface Status extends BaseType {

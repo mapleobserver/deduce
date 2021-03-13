@@ -7,6 +7,8 @@ import items from './items';
 import pack from './pack';
 import status from './status';
 import tip from './tip';
+import itemadd from './itemadd';
+import itemremove from './itemremove';
 import error from './error';
 
 const eventList: {
@@ -20,6 +22,8 @@ const eventList: {
   status,
   dialog,
   tip,
+  itemadd,
+  itemremove,
   error,
 };
 

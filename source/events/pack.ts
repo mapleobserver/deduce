@@ -11,25 +11,25 @@ export default (deduce: DeduceInterface) => (data: MessageMap['pack']): void => 
       unit: item.unit,
       value: item.value,
     }));
-    player.pack = newPackList;
+    player.packList = newPackList;
   }
   if (data.remove) {
-    const packItem = player.pack.find((item: BasePackItem) => item.id === data.id);
-    const packItemIndex = player.pack.findIndex((item: BasePackItem) => item.id === data.id);
+    const packItem = player.packList.find((item: BasePackItem) => item.id === data.id);
+    const packItemIndex = player.packList.findIndex((item: BasePackItem) => item.id === data.id);
     if (packItem) {
       if (data.remove >= packItem?.count) {
-        player.pack.splice(packItemIndex, 1);
+        player.packList.splice(packItemIndex, 1);
       } else {
         packItem.count -= 1;
       }
     }
   }
   if (data.count && data.id) {
-    const packItem = player.pack.find((item: BasePackItem) => item.id === data.id);
+    const packItem = player.packList.find((item: BasePackItem) => item.id === data.id);
     if (packItem) {
       packItem.count += 1;
     } else {
-      player.pack.push({
+      player.packList.push({
         id: data.id,
         count: data.count,
         name: data.name,
