@@ -1,5 +1,6 @@
 import { DeduceInterface } from '../types/System';
 import { BaseRoomItem, MessageMap } from '../types/Message';
+import { itemNameFormat } from '../utils/formatTool';
 
 export default (deduce: DeduceInterface) => (data: MessageMap['items']): void => {
   const { player } = deduce;
@@ -9,7 +10,10 @@ export default (deduce: DeduceInterface) => (data: MessageMap['items']): void =>
         player.status.add(statu.sid);
       });
     }
-    return { id: item.id, name: item.name };
+    return {
+      id: item.id,
+      name: itemNameFormat(item.name),
+    };
   });
   player.roomItems = newRoomList;
 };

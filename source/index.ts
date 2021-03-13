@@ -2,7 +2,7 @@ import Socket from './librarys/Socket';
 import Logger from './librarys/Logger';
 import { SocketInterface, LoggerInterface, DeduceInterface } from './types/System';
 import { UserConfig } from './types/Config';
-import Api from './utils/Api';
+import { getServer, getToken } from './utils/api';
 import eventList from './events';
 import Player from './types/Player';
 import fileParse from './utils/fileParse';
@@ -26,8 +26,8 @@ export default class Deduce implements DeduceInterface {
   }
 
   private async login(): Promise<void> {
-    const wsUrl: string | null = await Api.getServer(this.config.server);
-    const token: string | null = await Api.getToken(this.config.account, this.config.password);
+    const wsUrl: string | null = await getServer(this.config.server);
+    const token: string | null = await getToken(this.config.account, this.config.password);
     if (!wsUrl || !token) {
       this.logger.error(`获取${!wsUrl ? '服务器信息' : '用户登陆凭证'}失败。`);
       process.exit();
