@@ -1,4 +1,4 @@
-import { tipFormat, itemNameFormat } from '../../source/utils/formatTool';
+import { tipFormat, itemNameFormat, entryFormat } from '../../source/utils/formatTool';
 
 describe('格式化测试', () => {
   test('房间生物以及物品名格式化', () => {
@@ -64,5 +64,8 @@ describe('格式化测试', () => {
 绝招：衡山五神剑.五神赋移除
 
 增加其它可装备类型`);
+  });
+  test('词条信息格式化', () => {
+    expect(entryFormat('')).toBe('');
   });
 });
