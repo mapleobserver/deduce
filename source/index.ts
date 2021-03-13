@@ -1,10 +1,15 @@
 import Socket from './librarys/Socket';
 import Logger from './librarys/Logger';
-import { SocketInterface, LoggerInterface, DeduceInterface } from './types/System';
+import {
+  SocketInterface,
+  LoggerInterface,
+  DeduceInterface,
+  DeduceInfo,
+  PlayerInfo,
+} from './types/System';
 import { UserConfig } from './types/Config';
 import { getServer, getToken } from './utils/api';
 import eventList from './events';
-import Player from './types/Player';
 import fileParse from './utils/fileParse';
 
 export default class Deduce implements DeduceInterface {
@@ -12,16 +17,25 @@ export default class Deduce implements DeduceInterface {
 
   public config: UserConfig;
 
-  public player: Player = {
-    packList: [],
-    roomItems: [],
-    status: new Set(),
+  public deduceInfo: DeduceInfo = {
+    havePot: 0,
+    usedPot: 0,
+    remainPot: 0,
   };
+
+  public player: PlayerInfo = {};
+
+  public packItemList = [];
+
+  public roomItemList = [];
+
+  public statuList: Set<string> = new Set();
 
   public socket?: SocketInterface;
 
   constructor(configFile: string) {
     this.config = fileParse(configFile);
+    this.player.name = this.config.name;
     this.login();
   }
 

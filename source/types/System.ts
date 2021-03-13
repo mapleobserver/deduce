@@ -1,7 +1,19 @@
 import WebSocket from 'ws';
 import { EventEmitter } from 'events';
+import { BasePackItem, BaseRoomItem } from './Message';
 import { WebSocketConfig, UserConfig } from './Config';
-import Player from './Player';
+
+export interface PlayerInfo {
+  id?: string;
+  name?: string;
+}
+
+export interface DeduceInfo {
+  type?: '内功' | '轻功' | '招架' | '拳脚' | '剑法' | '刀法' | '棍法' | '鞭法' | '杖法' | '暗器';
+  havePot: number;
+  usedPot: number;
+  remainPot: number;
+}
 
 export interface SocketInterface extends EventEmitter {
   options: WebSocketConfig;
@@ -19,8 +31,12 @@ export interface LoggerInterface {
 }
 
 export interface DeduceInterface {
+  player: PlayerInfo;
   logger: LoggerInterface;
   config: UserConfig;
-  player: Player;
+  statuList: Set<string>;
+  deduceInfo: DeduceInfo;
+  packItemList: Array<BasePackItem>;
+  roomItemList: Array<BaseRoomItem>;
   socket?: SocketInterface;
 }

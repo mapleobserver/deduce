@@ -3,17 +3,17 @@ import { BaseRoomItem, MessageMap } from '../types/Message';
 import { itemNameFormat } from '../utils/formatTool';
 
 export default (deduce: DeduceInterface) => (data: MessageMap['items']): void => {
-  const { player } = deduce;
-  const newRoomList = data.items.map((item: BaseRoomItem) => {
-    if (player.id === item.id && item.status) {
+  const { roomItemList: roomItems } = deduce;
+  roomItems.length = 0;
+  data.items.forEach((item: BaseRoomItem) => {
+    if (deduce.player.id === item.id && item.status) {
       item.status.forEach((statu) => {
-        player.status.add(statu.sid);
+        deduce.statuList.add(statu.sid);
       });
     }
-    return {
+    roomItems.push({
       id: item.id,
       name: itemNameFormat(item.name),
-    };
+    });
   });
-  player.roomItems = newRoomList;
 };

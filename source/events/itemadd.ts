@@ -4,7 +4,7 @@ import { itemNameFormat } from '../utils/formatTool';
 
 export default (deduce: DeduceInterface) => (data: MessageMap['itemadd']): void => {
   if (deduce.player.id !== data.id) {
-    deduce.player.roomItems.push({
+    deduce.roomItemList.push({
       id: data.id,
       name: itemNameFormat(data.name),
     });
