@@ -7,7 +7,7 @@ export function itemNameFormat(itemName: string): string {
 }
 
 export function tipFormat(message: string): string {
-  return baseFormat(message);
+  return baseFormat(message.replace(/<br[/]>/g, '\n'));
 }
 
 export default {
