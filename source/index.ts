@@ -13,7 +13,7 @@ export default class Deduce implements DeduceInterface {
   public config: UserConfig;
 
   public player: Player = {
-    pack: new Map(),
+    pack: [],
     items: new Map(),
     status: new Set(),
   };
