@@ -10,7 +10,12 @@ export function tipFormat(message: string): string {
   return baseFormat(message.replace(/<br[/]>/g, '\n'));
 }
 
+export function entryFormat(entry: string): string {
+  return entry.replace(/[^\p{Unified_Ideograph}|%]|秒/gu, '');
+}
+
 export default {
   itemNameFormat,
   tipFormat,
+  entryFormat,
 };

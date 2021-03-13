@@ -3,8 +3,8 @@ import { tipFormat, itemNameFormat } from '../../source/utils/formatTool';
 describe('格式化测试', () => {
   test('房间生物以及物品名格式化', () => {
     expect(
-      itemNameFormat('<wht>武士 君岛美绪</wht><red>&lt;断线中&gt;</red><hig>&lt;挖矿中&gt;</hig>'),
-    ).toBe('武士 君岛美绪<断线中><挖矿中>');
+      itemNameFormat('<wht>武士 测试工具</wht><red>&lt;断线中&gt;</red><hig>&lt;挖矿中&gt;</hig>'),
+    ).toBe('武士 测试工具<断线中><挖矿中>');
     expect(itemNameFormat('<wht>武士 站牌</wht><hig>&lt;挖矿中&gt;</hig>')).toBe(
       '武士 站牌<挖矿中>',
     );
