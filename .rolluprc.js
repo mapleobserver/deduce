@@ -13,6 +13,6 @@ export default {
       format: 'es',
     },
   ],
-  external: ['path', 'events'],
+  external: ['path', 'events', 'fs'],
   plugins: [typescript()],
 };
