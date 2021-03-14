@@ -41,6 +41,7 @@ describe('格式化测试', () => {
     expect(entryFormat('暴击伤害：+8%')).toBe('暴击伤害%');
     expect(entryFormat('臂力：+114514')).toBe('臂力');
     expect(entryFormat('忙乱时间：+0.501秒')).toBe('忙乱时间');
+    expect(entryFormat('打坐效率：+67%(1)')).toBe('打坐效率%');
     expect(entryFormat('招架成功后顺势反击敌人，对敌人造成83%伤害(移花)')).toBe(
       '招架成功后顺势反击敌人，对敌人造成%伤害(移花)',
     );
