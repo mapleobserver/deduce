@@ -27,11 +27,22 @@ describe('格式化测试', () => {
     ).toBe(`你本次提升获得4个新的招架属性：
 攻击：+10207
 附加到招架放弃`);
+
+    expect(
+      tipFormat(
+        '<div class="item-commands"><hic>你还有未使用的招架属性：</hic><br/><cyn>身法：+3497</cyn><br/><span cmd="zc prop parry add">附加到招架</span><span cmd="zc prop parry ban">放弃</span><span cmd="zc prop parry gj">替换攻击属性</span><span cmd="zc prop parry str">替换臂力属性</span></div>',
+      ),
+    ).toBe(`你还有未使用的招架属性：
+身法：+3497
+附加到招架放弃替换攻击属性替换臂力属性`);
   });
 
   test('词条信息格式化', () => {
     expect(entryFormat('暴击伤害：+8%')).toBe('暴击伤害%');
     expect(entryFormat('臂力：+114514')).toBe('臂力');
     expect(entryFormat('忙乱时间：+0.501秒')).toBe('忙乱时间');
+    expect(entryFormat('招架成功后顺势反击敌人，对敌人造成83%伤害(移花)')).toBe(
+      '招架成功后顺势反击敌人，对敌人造成%伤害(移花)',
+    );
   });
 });

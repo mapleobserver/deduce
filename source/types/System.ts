@@ -6,20 +6,17 @@ import { WebSocketConfig, UserConfig, Accessories } from './Config';
 
 export interface Flags {
   init: boolean;
+  begin: boolean;
 }
 
 export interface PlayerInfo {
   id?: string;
   havePot: number;
   usedPot: number;
-  remainPot: number;
 }
 
 export interface EntryInfo {
-  [key: string]: {
-    level: number;
-    attribute: string;
-  };
+  [key: string]: number;
 }
 
 export interface DeduceInfo {
@@ -52,6 +49,6 @@ export interface DeduceInterface {
   deduceConfig: DeduceInfo;
   packItemList: Array<BasePackItem>;
   roomItemList: Array<BaseRoomItem>;
-  accessories?: Accessories;
+  accessories: Accessories;
   socket?: SocketInterface;
 }

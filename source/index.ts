@@ -18,6 +18,7 @@ import checkConfig from './utils/checkConfig';
 export default class Deduce implements DeduceInterface {
   public flags: Flags = {
     init: false,
+    begin: false,
   };
 
   public logger: LoggerInterface = new Logger();
@@ -31,10 +32,9 @@ export default class Deduce implements DeduceInterface {
   public playerInfo: PlayerInfo = {
     havePot: 0,
     usedPot: 0,
-    remainPot: 0,
   };
 
-  public accessories?: Accessories;
+  public accessories: Accessories;
 
   public packItemList = [];
 
@@ -55,7 +55,7 @@ export default class Deduce implements DeduceInterface {
     this.deduceConfig = config.deduceConfig;
     this.accessories =
       Object.prototype.toString.call(config.accessories) === '[object Object]'
-        ? config.accessories
+        ? <Object>config.accessories
         : {
             fy: false,
             xlu: false,

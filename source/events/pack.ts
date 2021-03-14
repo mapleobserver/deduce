@@ -14,6 +14,18 @@ export default (deduce: DeduceInterface) => (data: Pack): void => {
         value: item.value,
       }),
     );
+    if (deduce.accessories.fy) {
+      const fy = data.eqs.find((eq) => eq.name.includes('飞翼剑'));
+      if (fy) {
+        packList.push({
+          id: fy.id,
+          name: fy.name,
+          count: 1,
+          unit: '把',
+          value: 0,
+        });
+      }
+    }
   }
   if (data.remove) {
     const packItem = packList.find((item: BasePackItem) => item.id === data.id);
