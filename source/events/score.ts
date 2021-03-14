@@ -1,9 +1,19 @@
 import { DeduceInterface } from '../types/System';
-import { MessageMap } from '../types/Message';
+import { Score } from '../types/Message';
 
-export default (deduce: DeduceInterface) => (data: MessageMap['score']): void => {
-  const { deduceInfo } = deduce;
-  deduceInfo.havePot = data.pot;
-  deduce.logger.log(`当前剩余潜能：${deduceInfo.havePot}。`);
-  deduce.socket?.send('pack');
+export default (deduce: DeduceInterface) => (data: Score): void => {
+  const { entryInfo, player, flags } = deduce;
+  if (!flags.init) {
+    flags.init = true;
+    player.havePot = data.pot;
+    deduce.logger.log(`当前剩余潜能：${player.havePot}。`);
+    deduce.socket?.send('pack');
+  } else {
+    player.usedPot = player.havePot - data.pot;
+    Object.keys(entryInfo).forEach((entry: string) => {
+      if (entryInfo[entry] <= player.usedPot + player.remainPot) {
+        deduce.socket?.send('stopstate');
+      }
+    });
+  }
 };

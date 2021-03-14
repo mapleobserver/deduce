@@ -1,4 +1,14 @@
-server: 1
-name: 测试工具
-account: testaccount
-password: testpassword
+userConfig:
+  server: 1
+  name: 测试工具
+  account: testaccount
+  password: testpassword
+
+deduceConfig:
+  type: 剑法
+  entrys:
+    - 臂力
+    - 忽视对方防御
+    - 暴击
+    - 攻击百分比
+    - 嗜血

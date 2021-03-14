@@ -7,7 +7,7 @@ export interface BaseDialog extends BaseType {
   dialog: string;
 }
 
-export interface BasePack extends BaseDialog {
+interface BasePack extends BaseDialog {
   dialog: 'pack';
   money: number;
 }
@@ -109,7 +109,7 @@ export interface Score extends BaseDialog {
   bj: string;
 }
 
-export interface PackList extends BasePack {
+interface PackList extends BasePack {
   items: Array<BasePackItem>;
   eqs: Array<{
     name: string;
@@ -118,19 +118,21 @@ export interface PackList extends BasePack {
   max_item_count: number;
 }
 
-export interface PackItemRemove extends BasePack {
+interface PackItemRemove extends BasePack {
   id: string;
   remove: number;
   money: number;
 }
 
-export interface PackItemAdd extends BasePack {
+interface PackItemAdd extends BasePack {
   name: string;
   id: string;
   count: number;
   unit: string;
   value: number;
 }
+
+export interface Pack extends PackList, PackItemAdd, PackItemRemove {}
 
 export interface ItemAdd extends BaseType {
   type: 'itemadd';
@@ -152,27 +154,4 @@ export interface Tip extends BaseType {
   message: string;
 }
 
-export type Message =
-  | Roles
-  | Login
-  | Items
-  | Status
-  | Score
-  | PackList
-  | PackItemAdd
-  | PackItemRemove
-  | ItemAdd
-  | ItemRemove
-  | Tip;
-export type MessageType = Message['type'];
-export type MessageMap = {
-  roles: Roles;
-  login: Login;
-  items: Items;
-  status: Status;
-  score: Score;
-  pack: PackList & PackItemAdd & PackItemRemove;
-  itemadd: ItemAdd;
-  itemremove: ItemRemove;
-  tip: Tip;
-};
+export type Message = Roles | Login | Items | Status | Score | Pack | ItemAdd | ItemRemove | Tip;

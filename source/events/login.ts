@@ -1,7 +1,7 @@
 import { DeduceInterface } from '../types/System';
-import { MessageMap } from '../types/Message';
+import { Login } from '../types/Message';
 
-export default (deduce: DeduceInterface) => (data: MessageMap['login']): void => {
+export default (deduce: DeduceInterface) => (data: Login): void => {
   const { player } = deduce;
   deduce.socket?.send('score');
   player.id = data.id;

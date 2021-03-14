@@ -1,7 +1,7 @@
 import { DeduceInterface } from '../types/System';
-import { MessageMap } from '../types/Message';
+import { Status } from '../types/Message';
 
-export default (deduce: DeduceInterface) => (data: MessageMap['status']): void => {
+export default (deduce: DeduceInterface) => (data: Status): void => {
   if (deduce.player.id === data.id) {
     switch (data.action) {
       case 'add':

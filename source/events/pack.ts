@@ -1,7 +1,7 @@
 import { DeduceInterface } from '../types/System';
-import { BasePackItem, MessageMap } from '../types/Message';
+import { BasePackItem, Pack } from '../types/Message';
 
-export default (deduce: DeduceInterface) => (data: MessageMap['pack']): void => {
+export default (deduce: DeduceInterface) => (data: Pack): void => {
   const { packItemList: packList } = deduce;
   if (data.items) {
     packList.length = 0;

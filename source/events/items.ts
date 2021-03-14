@@ -1,8 +1,8 @@
 import { DeduceInterface } from '../types/System';
-import { BaseRoomItem, MessageMap } from '../types/Message';
+import { BaseRoomItem, Items } from '../types/Message';
 import { itemNameFormat } from '../utils/formatTool';
 
-export default (deduce: DeduceInterface) => (data: MessageMap['items']): void => {
+export default (deduce: DeduceInterface) => (data: Items): void => {
   const { roomItemList: roomItems } = deduce;
   roomItems.length = 0;
   data.items.forEach((item: BaseRoomItem) => {

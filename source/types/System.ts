@@ -1,18 +1,27 @@
 import WebSocket from 'ws';
 import { EventEmitter } from 'events';
+import { DeduceType } from './Deduce';
 import { BasePackItem, BaseRoomItem } from './Message';
 import { WebSocketConfig, UserConfig } from './Config';
 
-export interface PlayerInfo {
-  id?: string;
-  name?: string;
+export interface Flags {
+  init: boolean;
 }
 
-export interface DeduceInfo {
-  type?: '内功' | '轻功' | '招架' | '拳脚' | '剑法' | '刀法' | '棍法' | '鞭法' | '杖法' | '暗器';
+export interface PlayerInfo {
+  id?: string;
   havePot: number;
   usedPot: number;
   remainPot: number;
+}
+
+export interface EntryInfo {
+  [key: string]: number;
+}
+
+export interface DeduceInfo {
+  type: keyof DeduceType;
+  entry: string[];
 }
 
 export interface SocketInterface extends EventEmitter {
@@ -31,10 +40,12 @@ export interface LoggerInterface {
 }
 
 export interface DeduceInterface {
+  flags: Flags;
   player: PlayerInfo;
   logger: LoggerInterface;
-  config: UserConfig;
+  userConfig: UserConfig;
   statuList: Set<string>;
+  entryInfo: EntryInfo;
   deduceInfo: DeduceInfo;
   packItemList: Array<BasePackItem>;
   roomItemList: Array<BaseRoomItem>;

@@ -1,8 +1,8 @@
 import { DeduceInterface } from '../types/System';
-import { MessageMap } from '../types/Message';
+import { Roles } from '../types/Message';
 
-export default (deduce: DeduceInterface) => (data: MessageMap['roles']): void => {
-  const user = data.roles.find((role) => role.name === deduce.config.name);
+export default (deduce: DeduceInterface) => (data: Roles): void => {
+  const user = data.roles.find((role) => role.name === deduce.userConfig.name);
   if (user) {
     deduce.logger.log('获取角色信息成功，开始登陆。');
     deduce.socket?.send(`login ${user.id}`);
