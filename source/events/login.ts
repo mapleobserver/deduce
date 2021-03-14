@@ -2,8 +2,8 @@ import { DeduceInterface } from '../types/System';
 import { Login } from '../types/Message';
 
 export default (deduce: DeduceInterface) => (data: Login): void => {
-  const { playerInfo: player } = deduce;
+  const { playerInfo } = deduce;
   deduce.socket?.send('score');
-  player.id = data.id;
+  playerInfo.id = data.id;
   deduce.logger.log(`登陆成功，角色id：${data.id}。`);
 };

@@ -11,17 +11,15 @@
 
 ## 使用方法
 
-须提前自行安装 nodejs
+- [无任何基础请点这里](https://baidu.com)
+
+- 安装 [nodejs](http://nodejs.cn/download/)
 
 ```
 npm i @wsmud/deduce
-
-yarn add @wsmud/deduce
 ```
 
-编写启动脚本
-
-#### 栗子 🌰
+- 编写启动脚本
 
 ```
 //start.js
@@ -33,9 +31,11 @@ new wsmudDeduce('config.yml');
 
 ## 配置文件
 
-支持格式为 json,yaml
+支持格式为 json|yml|yaml
 
 ```
+#config.yml
+
 userConfig:
   server: 1
   name: 测试工具
