@@ -11,7 +11,7 @@
 
 ## 使用方法
 
-安装 nodejs
+须提前自行安装 nodejs
 
 ```
 npm i @wsmud/deduce
