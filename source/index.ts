@@ -9,7 +9,7 @@ import {
   Flags,
   EntryInfo,
 } from './types/System';
-import { UserConfig, Config } from './types/Config';
+import { UserConfig, Config, Accessories } from './types/Config';
 import { getServer, getToken } from './utils/api';
 import eventList from './events';
 import fileParse from './utils/fileParse';
@@ -34,6 +34,8 @@ export default class Deduce implements DeduceInterface {
     remainPot: 0,
   };
 
+  public accessories?: Accessories;
+
   public packItemList = [];
 
   public roomItemList = [];
@@ -51,6 +53,14 @@ export default class Deduce implements DeduceInterface {
     }
     this.userConfig = config.userConfig;
     this.deduceConfig = config.deduceConfig;
+    this.accessories =
+      Object.prototype.toString.call(config.accessories) === '[object Object]'
+        ? config.accessories
+        : {
+            fy: false,
+            xlu: false,
+            food: false,
+          };
     this.login();
   }
 

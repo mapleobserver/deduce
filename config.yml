@@ -12,3 +12,8 @@ deduceConfig:
     - 暴击
     - 攻击百分比
     - 嗜血
+
+accessories:
+  food: true
+  fy: true
+  xlu: true

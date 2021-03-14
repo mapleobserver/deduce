@@ -17,7 +17,14 @@ export interface DeduceConfig {
   entrys: string[];
 }
 
+export interface Accessories {
+  food?: boolean;
+  fy?: boolean;
+  xlu?: boolean;
+}
+
 export interface Config {
   userConfig: UserConfig;
   deduceConfig: DeduceConfig;
+  accessories?: Accessories;
 }

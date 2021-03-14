@@ -21,5 +21,8 @@ export default function filePsrse(path: string): any {
     default:
       throw new TypeError('不受支持的配置文件类型。');
   }
+  if (Object.prototype.toString.call(data) !== '[object Object]') {
+    throw new TypeError('配置文件错误。');
+  }
   return data;
 }
