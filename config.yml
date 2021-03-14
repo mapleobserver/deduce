@@ -6,8 +6,8 @@ userConfig:
 
 deduceConfig:
   type: 剑法
-  entrys:
-    - 臂力
+  ntrys:
+    - 臂
     - 忽视对方防御
     - 暴击
     - 攻击百分比

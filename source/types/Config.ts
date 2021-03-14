@@ -14,7 +14,7 @@ export interface UserConfig {
 
 export interface DeduceConfig {
   type: keyof DeduceType;
-  entry: string[];
+  entrys: string[];
 }
 
 export interface Config {

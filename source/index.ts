@@ -9,10 +9,11 @@ import {
   Flags,
   EntryInfo,
 } from './types/System';
-import { UserConfig } from './types/Config';
+import { UserConfig, Config } from './types/Config';
 import { getServer, getToken } from './utils/api';
 import eventList from './events';
 import fileParse from './utils/fileParse';
+import checkConfig from './utils/checkConfig';
 
 export default class Deduce implements DeduceInterface {
   public flags: Flags = {
@@ -23,11 +24,11 @@ export default class Deduce implements DeduceInterface {
 
   public userConfig: UserConfig;
 
+  public deduceConfig: DeduceInfo;
+
   public entryInfo: EntryInfo = {};
 
-  public deduceInfo: DeduceInfo;
-
-  public player: PlayerInfo = {
+  public playerInfo: PlayerInfo = {
     havePot: 0,
     usedPot: 0,
     remainPot: 0,
@@ -42,9 +43,14 @@ export default class Deduce implements DeduceInterface {
   public socket?: SocketInterface;
 
   constructor(configFile: string) {
-    const config = fileParse(configFile);
+    const config: Config = fileParse(configFile);
+    const error: string = checkConfig(config);
+    if (error) {
+      this.logger.error(error);
+      process.exit();
+    }
     this.userConfig = config.userConfig;
-    this.deduceInfo = config.deduceConfig;
+    this.deduceConfig = config.deduceConfig;
     this.login();
   }
 

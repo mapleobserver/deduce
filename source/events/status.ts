@@ -2,7 +2,7 @@ import { DeduceInterface } from '../types/System';
 import { Status } from '../types/Message';
 
 export default (deduce: DeduceInterface) => (data: Status): void => {
-  if (deduce.player.id === data.id) {
+  if (deduce.playerInfo.id === data.id) {
     switch (data.action) {
       case 'add':
         deduce.statuList.add(data.sid);

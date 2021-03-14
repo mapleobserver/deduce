@@ -2,7 +2,7 @@ import { DeduceInterface } from '../types/System';
 import { Score } from '../types/Message';
 
 export default (deduce: DeduceInterface) => (data: Score): void => {
-  const { entryInfo, player, flags } = deduce;
+  const { entryInfo, playerInfo: player, flags } = deduce;
   if (!flags.init) {
     flags.init = true;
     player.havePot = data.pot;
@@ -11,7 +11,7 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
   } else {
     player.usedPot = player.havePot - data.pot;
     Object.keys(entryInfo).forEach((entry: string) => {
-      if (entryInfo[entry] <= player.usedPot + player.remainPot) {
+      if (entryInfo[entry].level <= player.usedPot + player.remainPot) {
         deduce.socket?.send('stopstate');
       }
     });

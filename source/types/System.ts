@@ -16,12 +16,15 @@ export interface PlayerInfo {
 }
 
 export interface EntryInfo {
-  [key: string]: number;
+  [key: string]: {
+    level: number;
+    attribute: string;
+  };
 }
 
 export interface DeduceInfo {
   type: keyof DeduceType;
-  entry: string[];
+  entrys: string[];
 }
 
 export interface SocketInterface extends EventEmitter {
@@ -41,12 +44,12 @@ export interface LoggerInterface {
 
 export interface DeduceInterface {
   flags: Flags;
-  player: PlayerInfo;
   logger: LoggerInterface;
-  userConfig: UserConfig;
   statuList: Set<string>;
   entryInfo: EntryInfo;
-  deduceInfo: DeduceInfo;
+  userConfig: UserConfig;
+  playerInfo: PlayerInfo;
+  deduceConfig: DeduceInfo;
   packItemList: Array<BasePackItem>;
   roomItemList: Array<BaseRoomItem>;
   socket?: SocketInterface;
