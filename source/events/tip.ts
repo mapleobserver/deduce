@@ -56,7 +56,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         const attrName = findNameByAttr(deduce.deduceConfig.type, entryFormat(attr));
         const attrLevel = attr.match(/.+\((\d+)\)(?<=\))$/);
         if (!attrName || !attrLevel) {
-          logger.error(`获取属性名失败，已放弃，属性为：${attr}。`);
+          logger.error(`获取属性信息失败，属性为：${attr}。`);
         } else {
           entryInfo[attrName] = Number(attrLevel[1]);
         }
