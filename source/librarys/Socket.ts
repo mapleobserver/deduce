@@ -26,16 +26,16 @@ class Socket extends EventEmitter implements SocketInterface {
   }
 
   private onOpen(): void {
-    this.emit('open');
+    this.emit('_open');
     this.send(this.options.token);
   }
 
   private onClose(): void {
-    this.emit('close');
+    this.emit('_close');
   }
 
   private onError(error: WebSocket.ErrorEvent): void {
-    this.emit('error', error);
+    this.emit('_error', error);
   }
 
   private onMessage(message: WebSocket.MessageEvent): void {

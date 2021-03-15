@@ -12,6 +12,7 @@ import {
 import { UserConfig, Config, Accessories } from './types/Config';
 import { getServer, getToken } from './utils/api';
 import eventList from './events';
+import systemEventList from './events/system';
 import fileParse from './utils/fileParse';
 import checkConfig from './utils/checkConfig';
 
@@ -77,10 +78,6 @@ export default class Deduce implements DeduceInterface {
     this.loadEvents();
   }
 
-  public reLogin(): void {
-    this.login();
-  }
-
   private loadEvents(): void {
     Object.keys(eventList).forEach((event) => {
       const listener = eventList[`${event}`](this);
@@ -88,5 +85,16 @@ export default class Deduce implements DeduceInterface {
         listener(data);
       });
     });
+
+    Object.keys(systemEventList).forEach((event) => {
+      const listener = systemEventList[`${event}`](this);
+      this.socket?.on(`_${event}`, (data) => {
+        listener(data);
+      });
+    });
+  }
+
+  public reLogin(): void {
+    this.login();
   }
 }

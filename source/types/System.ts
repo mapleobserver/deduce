@@ -52,4 +52,5 @@ export interface DeduceInterface {
   roomItemList: Array<BaseRoomItem>;
   accessories: Accessories;
   socket?: SocketInterface;
+  reLogin(): void;
 }

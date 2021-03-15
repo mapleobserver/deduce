@@ -9,7 +9,6 @@ import status from './status';
 import tip from './tip';
 import itemadd from './itemadd';
 import itemremove from './itemremove';
-import error from './error';
 
 const eventList: {
   [key: string]: Event;
@@ -24,7 +23,6 @@ const eventList: {
   tip,
   itemadd,
   itemremove,
-  error,
 };
 
 export default eventList;
