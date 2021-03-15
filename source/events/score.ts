@@ -1,6 +1,5 @@
 import { DeduceInterface } from '../types/System';
 import { Score } from '../types/Message';
-import { getTypeCodeByName } from '../utils/entryTool';
 import { checkFyStatu, checkXluStatu, checkFoodStatu } from '../utils/checkStatus';
 
 export default (deduce: DeduceInterface) => (data: Score): void => {
@@ -8,14 +7,14 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
   if (!flags.init) {
     flags.init = true;
     playerInfo.havePot = data.pot;
-    deduce.logger.log(`当前剩余潜能：${playerInfo.havePot}。`);
+    deduce.logger.log(`获取剩余潜能成功：${playerInfo.havePot}。`);
     deduce.socket?.send('stopstate,pack');
     setTimeout(() => {
       flags.begin = true;
       if (accessories.fy) checkFyStatu(deduce);
       if (accessories.xlu) checkXluStatu(deduce);
       if (accessories.food) checkFoodStatu(deduce);
-      deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduce.deduceConfig.type)}`);
+      deduce.socket?.send('zc typelv test');
     }, 5e3);
   } else {
     const entryInfoKeys = Object.keys(entryInfo);

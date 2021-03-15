@@ -8,7 +8,7 @@ export function checkFyStatu(deduce: DeduceInterface) {
   const fy = deduce.packItemList.find((item) => item.name.includes('飞翼剑'));
   if (!fy) {
     accessories.fy = false;
-    deduce.logger.error('未找到飞翼剑，续飞翼剑已关闭。');
+    deduce.logger.warn('未找到飞翼剑，续飞翼剑已关闭。');
   } else if (!deduce.statuList.has('fy')) {
     deduce.socket?.send(`stopstate,use ${fy.id}`);
   }
@@ -22,7 +22,7 @@ export function checkFoodStatu(deduce: DeduceInterface) {
   const food = deduce.packItemList.find((item) => item.name.includes('冰心丹'));
   if (!food) {
     accessories.food = false;
-    deduce.logger.error('未找到冰心丹，续冰心丹已关闭。');
+    deduce.logger.warn('未找到冰心丹，续冰心丹已关闭。');
   } else if (!deduce.statuList.has('food')) {
     deduce.socket?.send(`stopstate,use ${food.id}`);
   }
@@ -41,7 +41,7 @@ export function checkXluStatu(deduce: DeduceInterface) {
   );
   if (!xlu) {
     accessories.xlu = false;
-    deduce.logger.error('未找到香炉，续香炉已关闭。');
+    deduce.logger.warn('未找到香炉，续香炉已关闭。');
   } else if (!deduce.statuList.has('xlu')) {
     if (roomXlu) {
       deduce.socket?.send(`get ${roomXlu.id},drop 1 ${roomXlu.id}`);
