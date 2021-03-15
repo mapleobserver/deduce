@@ -7,6 +7,7 @@
   <a href="https://github.com/wsmud/deduce/blob/master/LICENSE"><img src="https://img.shields.io/npm/l/@wsmud/deduce"></a>
   <a href="https://www.npmjs.com/package/@wsmud/deduce"><img src="https://img.shields.io/npm/v/@wsmud/deduce"></a>
   <a href="https://www.npmjs.com/package/@wsmud/deduce"><img src="https://img.shields.io/npm/dt/@wsmud/deduce"></a>
+  <a href="https://jq.qq.com/?_wv=1027&k=lhe1GnIq"><img src="https://img.shields.io/badge/QQ群-58806400-blue"></a>
 </p>
 
 ## 使用方法
