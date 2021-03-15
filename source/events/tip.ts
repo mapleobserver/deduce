@@ -79,12 +79,14 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         } else {
           const lastLevel = Number(attrLevel[1]);
           const nowLevel = Number(attrLevel[2]);
+          const attrNum = attr.split('-->')[1].replace(/.+?：|\((\d+)\)(?<=\))$/g, '');
           entryInfo[attrName] = nowLevel;
           playerInfo.usedPot -=
             (((nowLevel + lastLevel - 1) * (nowLevel - lastLevel)) / 2) * 100000;
           playerInfo.usedPot = playerInfo.usedPot < 0 ? 0 : playerInfo.usedPot;
-          logger.log(`${attrName}属性由${lastLevel}级升级到${nowLevel}级。`);
-          logger.log(`当前剩余潜能：${playerInfo.havePot}。`);
+          logger.log(
+            `${attrName}属性由${lastLevel}级升级到${nowLevel}级，当前属性值：${attrNum}，当前剩余潜能：${playerInfo.havePot}。`,
+          );
         }
       });
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
