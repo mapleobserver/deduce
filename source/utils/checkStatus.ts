@@ -1,6 +1,6 @@
 import { DeduceInterface } from '../types/System';
 
-export function checkFyStatu(deduce: DeduceInterface) {
+export function checkFyStatu(deduce: DeduceInterface): void {
   if (deduce.statuList.has('fy')) {
     return;
   }
@@ -9,12 +9,12 @@ export function checkFyStatu(deduce: DeduceInterface) {
   if (!fy) {
     accessories.fy = false;
     deduce.logger.warn('未找到飞翼剑，续飞翼剑已关闭。');
-  } else if (!deduce.statuList.has('fy')) {
+  } else {
     deduce.socket?.send(`stopstate,use ${fy.id}`);
   }
 }
 
-export function checkFoodStatu(deduce: DeduceInterface) {
+export function checkFoodStatu(deduce: DeduceInterface): void {
   if (deduce.statuList.has('food')) {
     return;
   }
@@ -23,12 +23,12 @@ export function checkFoodStatu(deduce: DeduceInterface) {
   if (!food) {
     accessories.food = false;
     deduce.logger.warn('未找到冰心丹，续冰心丹已关闭。');
-  } else if (!deduce.statuList.has('food')) {
+  } else {
     deduce.socket?.send(`stopstate,use ${food.id}`);
   }
 }
 
-export function checkXluStatu(deduce: DeduceInterface) {
+export function checkXluStatu(deduce: DeduceInterface): void {
   if (deduce.statuList.has('xlu')) {
     return;
   }
@@ -42,7 +42,7 @@ export function checkXluStatu(deduce: DeduceInterface) {
   if (!xlu) {
     accessories.xlu = false;
     deduce.logger.warn('未找到香炉，续香炉已关闭。');
-  } else if (!deduce.statuList.has('xlu')) {
+  } else {
     if (roomXlu) {
       deduce.socket?.send(`get ${roomXlu.id},drop 1 ${roomXlu.id}`);
     }
