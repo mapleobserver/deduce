@@ -42,6 +42,12 @@ describe('格式化测试', () => {
     expect(entryFormat('臂力：+114514')).toBe('臂力');
     expect(entryFormat('忙乱时间：+0.501秒')).toBe('忙乱时间');
     expect(entryFormat('打坐效率：+67%(1)')).toBe('打坐效率%');
+    expect(entryFormat('每次攻击附加你最大内力0.5%的伤害（入魔）(1)')).toBe(
+      '每次攻击附加你最大内力%的伤害入魔',
+    );
+    expect(entryFormat('你的气血每降低1%受到的伤害减少0.5%(1)')).toBe(
+      '你的气血每降低%受到的伤害减少%',
+    );
     expect(entryFormat('招架成功后顺势反击敌人，对敌人造成83%伤害(移花)')).toBe(
       '招架成功后顺势反击敌人，对敌人造成%伤害(移花)',
     );
