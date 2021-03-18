@@ -43,9 +43,10 @@ export function checkXluStatu(deduce: DeduceInterface): void {
     accessories.xlu = false;
     deduce.logger.warn('未找到香炉，续香炉已关闭。');
   } else {
+    deduce.socket?.send('stopstate');
     if (roomXlu) {
-      deduce.socket?.send(`stopstate,get ${roomXlu.id},drop 1 ${roomXlu.id}`);
+      deduce.socket?.send(`get ${roomXlu.id},drop 1 ${roomXlu.id}`);
     }
-    deduce.socket?.send(`stopstate,use ${xlu.id}`);
+    deduce.socket?.send(`use ${xlu.id}`);
   }
 }
