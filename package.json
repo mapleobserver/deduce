@@ -1,6 +1,6 @@
 {
   "name": "@wsmud/deduce",
-  "version": "0.2.36",
+  "version": "0.2.38",
   "description": "武神传说科学推演",
   "main": "bundle/index.cjs.js",
   "module": "bundle/index.es.js",

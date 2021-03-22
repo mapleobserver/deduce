@@ -1,3 +1,4 @@
+import { checkXluStatu } from '../utils/checkStatus';
 import { DeduceInterface } from '../types/System';
 import { Tip } from '../types/Message';
 import { entryFormat, tipFormat } from '../utils/formatTool';
@@ -9,6 +10,15 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
 
   if (!deduce.flags.begin) {
     return;
+  }
+
+  if (msg.includes('已经没法点燃了')) {
+    const xluIndex = deduce.packItemList.findIndex((item) =>
+      /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
+    );
+
+    deduce.packItemList.splice(xluIndex, 1);
+    checkXluStatu(deduce);
   }
 
   if (msg.includes('有了更深入的理解')) {
