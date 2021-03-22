@@ -20,6 +20,7 @@ export default class Deduce implements DeduceInterface {
   public flags: Flags = {
     init: false,
     begin: false,
+    firstLevelUp: true,
   };
 
   public logger: LoggerInterface = new Logger();

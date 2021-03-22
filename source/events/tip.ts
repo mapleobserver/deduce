@@ -6,7 +6,7 @@ import { getTypeCodeByName, findNameByAttr } from '../utils/entryTool';
 
 export default (deduce: DeduceInterface) => (data: Tip): void => {
   const msg: string = tipFormat(data.message);
-  const { deduceConfig, logger, entryInfo, playerInfo } = deduce;
+  const { flags, deduceConfig, logger, entryInfo, playerInfo } = deduce;
 
   if (!deduce.flags.begin) {
     return;
@@ -29,25 +29,13 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
     logger.error(`自创无${deduceConfig.type}位置，武道书不足无法增加位置，退出任务`);
   }
 
-  if (msg.includes('本次消耗会累计到下次使用')) {
+  if (/本次消耗会累计到下次使用|你的武功已经可以装备/.test(msg)) {
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
   }
 
   if (/你的.+?没有这种功能/.test(msg)) {
     [, playerInfo.bookName] = <RegExpMatchArray>msg.match(/你的(.+?)没有这种功能/);
     deduce.socket?.send(`zc typeadd ${getTypeCodeByName(deduceConfig.type)} ok`);
-  }
-
-  if (msg.includes('你的武功已经可以装备')) {
-    const book = deduce.packItemList.find((item) =>
-      item.name.includes(<string>playerInfo.bookName),
-    );
-
-    if (!book) {
-      logger.error('未在包裹里找到自创秘籍。');
-      process.exit();
-    }
-    deduce.socket?.send(`packitem zc2 ${book.id}`);
   }
 
   if (msg.includes('增加其它可装备类型')) {
@@ -99,7 +87,21 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           );
         }
       });
-    deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
+    if (flags.firstLevelUp) {
+      flags.firstLevelUp = false;
+      const book = deduce.packItemList.find((item) =>
+        item.name.includes(<string>playerInfo.bookName),
+      );
+
+      if (!book) {
+        logger.warn('未在包裹里找到自创秘籍。');
+        deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
+      } else {
+        deduce.socket?.send(`packitem zc2 ${book.id}`);
+      }
+    } else {
+      deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
+    }
   }
 
   if (msg.includes('你还有未使用的')) {

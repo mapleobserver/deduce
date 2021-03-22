@@ -7,6 +7,7 @@ import { WebSocketConfig, UserConfig, Accessories } from './Config';
 export interface Flags {
   init: boolean;
   begin: boolean;
+  firstLevelUp: boolean;
 }
 
 export interface PlayerInfo {
