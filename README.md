@@ -18,7 +18,7 @@
 
 ```sh
 npm i @wsmud/deduce
-npx deduceinit
+npx deduce
 ```
 
 ## 配置文件
