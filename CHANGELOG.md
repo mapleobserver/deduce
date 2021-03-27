@@ -1,9 +1,14 @@
-## [0.4.6](https://github.com/wsmud/deduce/compare/v0.4.5...v0.4.6) (2021-03-27)
+## [0.4.7](https://github.com/wsmud/deduce/compare/v0.4.5...v0.4.7) (2021-03-27)
 
 
 ### Bug Fixes
 
 * 修复快速启动命令 ([4f9b560](https://github.com/wsmud/deduce/commit/4f9b560ce462adaa612e62862136d358c5084f40))
+
+
+### Features
+
+* 添加交互式配置生成器 ([d838189](https://github.com/wsmud/deduce/commit/d8381895f6cfb7b05aee9dc9fd3b544a93eba68a))
 
 
 
