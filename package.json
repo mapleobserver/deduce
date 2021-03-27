@@ -14,7 +14,8 @@
     "email": "line@live.com"
   },
   "files": [
-    "bundle/"
+    "bundle/",
+    "init.js"
   ],
   "scripts": {
     "lint": "yarn lint:eslint && yarn lint:prettier",
