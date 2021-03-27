@@ -16,25 +16,16 @@
 
 - 安装 [nodejs](http://nodejs.cn/download/)
 
-```
+```sh
 npm i @wsmud/deduce
-```
-
-- 编写启动脚本
-
-```
-//start.js
-
-const wsmudDeduce = require('@wsmud/deduce');
-
-new wsmudDeduce('config.yml');
+npx deduceinit
 ```
 
 ## 配置文件
 
 支持格式为 json|yml|yaml
 
-```
+```yaml
 #config.yml
 
 userConfig:
