@@ -5,6 +5,9 @@
   "main": "bundle/index.cjs.js",
   "module": "bundle/index.es.js",
   "types": "bundle/index.d.ts",
+  "bin": {
+    "deduceinit": "init.js"
+  },
   "license": "MIT",
   "author": {
     "name": "line",

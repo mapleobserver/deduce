@@ -1,6 +1,4 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-yarn version --no-git-tag-version --patch
-git add package.json
 yarn lint-staged
