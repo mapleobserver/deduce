@@ -1,18 +1,23 @@
-## [0.4.5](https://github.com/wsmud/deduce/compare/v0.4.4...v0.4.5) (2021-03-27)
-
-
-### Features
-
-* 添加快速启动命令 ([04f873e](https://github.com/wsmud/deduce/commit/04f873eb85ea43c475e3fe6570a4d00ed299342b))
-
-
-
-## [0.4.4](https://github.com/wsmud/deduce/compare/v0.4.3...v0.4.4) (2021-03-27)
+## [0.4.6](https://github.com/wsmud/deduce/compare/v0.4.5...v0.4.6) (2021-03-27)
 
 
 ### Bug Fixes
 
-* 修复招架位置乾坤词条错误 ([822bb91](https://github.com/wsmud/deduce/commit/822bb91f58482fc27139f48b1b7edd54fa699a95))
+* 修复快速启动命令 ([4f9b560](https://github.com/wsmud/deduce/commit/4f9b560ce462adaa612e62862136d358c5084f40))
+
+
+
+## [0.4.5](https://github.com/wsmud/deduce/compare/v0.4.2...v0.4.5) (2021-03-27)
+
+
+### Bug Fixes
+
+* 修复招架位置乾坤词条错误 ([aecd234](https://github.com/wsmud/deduce/commit/aecd234902c8f21cfb6bc2b8b045089bc4fdcea8))
+
+
+### Features
+
+* 添加快速启动命令 ([782cf4b](https://github.com/wsmud/deduce/commit/782cf4b33534f6d2216758c868457b82106fcbc0))
 
 
 
