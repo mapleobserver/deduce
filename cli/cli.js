@@ -26,7 +26,10 @@ const baseConfig = {
   const setLevel = await prompts.getYesOrNo('是否设置词条目标等级？');
   if (setLevel.choose) {
     if (setOverEntry.choose) {
-      entrys.splice(entrys.indexOf(baseConfig.deduceConfig.overEntry), 1);
+      entrysInfo.splice(
+        entrysInfo.findIndex((entry) => entry.entry === baseConfig.deduceConfig.overEntry),
+        1,
+      );
     }
     for (const entry of entrysInfo) {
       const { level } = await prompts.getEntryLevel(entry.entry);
