@@ -1,4 +1,13 @@
-## [0.4.7](https://github.com/wsmud/deduce/compare/v0.4.5...v0.4.7) (2021-03-27)
+## [0.4.8](https://github.com/wsmud/deduce/compare/v0.4.7...v0.4.8) (2021-03-29)
+
+
+### Features
+
+* 增加词条到达等级以及拿到设定词条暂停 ([74db9d3](https://github.com/wsmud/deduce/commit/74db9d36f9780949ef70740e4a6777ba18751882))
+
+
+
+## [0.4.7](https://github.com/wsmud/deduce/compare/v0.4.6...v0.4.7) (2021-03-27)
 
 
 ### Bug Fixes
