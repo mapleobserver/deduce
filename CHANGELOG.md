@@ -1,3 +1,12 @@
+## [0.4.9](https://github.com/wsmud/deduce/compare/v0.4.8...v0.4.9) (2021-03-29)
+
+
+### Bug Fixes
+
+* 修复cli设置词条等级没有正确排除设定词条的问题 ([da650fc](https://github.com/wsmud/deduce/commit/da650fccaf1c10a8449fa84a86fa5cd892f1554c))
+
+
+
 ## [0.4.8](https://github.com/wsmud/deduce/compare/v0.4.7...v0.4.8) (2021-03-29)
 
 
