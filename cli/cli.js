@@ -1,4 +1,7 @@
 #!/usr/bin/env node
+/* eslint 'no-restricted-syntax': 'off' */
+/* eslint 'no-await-in-loop': 'off' */
+
 const fs = require('fs');
 const yaml = require('js-yaml');
 const prompts = require('./prompts');
@@ -6,27 +9,37 @@ const prompts = require('./prompts');
 const startJs = `const wsmudDeduce = require('@wsmud/deduce');
 new wsmudDeduce('config.yml');`;
 const baseConfig = {
-  userConfig: {
-    server: 1,
-    name: '测试工具',
-    account: 'testaccount',
-    password: 'testpassword',
-  },
-  deduceConfig: { type: '剑法', entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'] },
+  userConfig: {},
+  deduceConfig: {},
   accessories: { food: true, fy: true, xlu: true },
 };
 
-fs.writeFileSync('start.js', startJs);
-
 (async () => {
   const config = await prompts.getConfig();
-  const entrys = await prompts.getEntrys(config.type);
+  const { entrys } = await prompts.getEntrys(config.type);
+  const entrysInfo = entrys.map((entry) => ({ entry, level: 0 }));
+  const setOverEntry = await prompts.getYesOrNo('是否设置拿到某些词条后暂停？');
+  if (setOverEntry.choose) {
+    const { entry } = await prompts.getOverEntry(entrys);
+    baseConfig.deduceConfig.overEntry = entry;
+  }
+  const setLevel = await prompts.getYesOrNo('是否设置词条目标等级？');
+  if (setLevel.choose) {
+    if (setOverEntry.choose) {
+      entrys.splice(entrys.indexOf(baseConfig.deduceConfig.overEntry), 1);
+    }
+    for (const entry of entrysInfo) {
+      const { level } = await prompts.getEntryLevel(entry.entry);
+      entry.level = level;
+    }
+  }
   baseConfig.userConfig.server = config.server;
   baseConfig.userConfig.name = config.name;
   baseConfig.userConfig.account = config.account;
   baseConfig.userConfig.password = config.password;
   baseConfig.deduceConfig.type = config.type;
-  baseConfig.deduceConfig.entrys = entrys.entrys;
+  baseConfig.deduceConfig.entrys = entrysInfo;
+  fs.writeFileSync('start.js', startJs);
   fs.writeFileSync('config.yml', yaml.dump(baseConfig));
   console.log('启动文件与配置已生成，请执行node start.js');
 })();

@@ -59,6 +59,23 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           entryInfo[attrName] = Number(attrLevel[1]);
         }
       });
+    const allLevelZero = deduceConfig.entrys.every((entry) => entry.level === 0);
+    const allLevelOk = deduceConfig.entrys.every(
+      (info) => info.entry in entryInfo && entryInfo[info.entry] >= info.level,
+    );
+    if (!allLevelZero && allLevelOk) {
+      logger.log(`已达到停止条件：词条均达到指定等级。`);
+      const roomXlu = deduce.roomItemList.find((item) =>
+        /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
+      );
+      deduce.socket?.send('stopstate');
+      if (roomXlu) {
+        deduce.socket?.send(`get ${roomXlu.id}`);
+      }
+      deduce.socket?.send('xiulian');
+      process.exit();
+    }
+
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
   }
 
@@ -102,6 +119,23 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
     } else {
       deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
     }
+    const allLevelZero = deduceConfig.entrys.every((entry) => entry.level === 0);
+    const allLevelOk = deduceConfig.entrys.every(
+      (info) => info.entry in entryInfo && entryInfo[info.entry] >= info.level,
+    );
+
+    if (!allLevelZero && allLevelOk) {
+      logger.log(`已达到停止条件：词条均达到指定等级。`);
+      const roomXlu = deduce.roomItemList.find((item) =>
+        /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
+      );
+      deduce.socket?.send('stopstate');
+      if (roomXlu) {
+        deduce.socket?.send(`get ${roomXlu.id}`);
+      }
+      deduce.socket?.send('xiulian');
+      process.exit();
+    }
   }
 
   if (msg.includes('你还有未使用的')) {
@@ -114,14 +148,43 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         logger.error(`获取属性名失败，已放弃，属性为：${attr}。`);
         deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} ban`);
       } else {
-        const isWant: boolean = deduceConfig.entrys.includes(attrName);
+        const isWant: boolean = deduceConfig.entrys.some(({ entry }) => {
+          if (entry !== attrName) {
+            return false;
+          }
+          const allLevelOk = deduceConfig.entrys.every((info) =>
+            deduceConfig.overEntry === info.entry
+              ? true
+              : info.entry in entryInfo && entryInfo[info.entry] >= info.level,
+          );
+          if (deduceConfig.overEntry === attrName) {
+            return !!allLevelOk;
+          }
+          return true;
+        });
+
         if (isWant) {
           deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} add`);
           logger.log(`获得新属性，属性为所需，添加新属性：${attrName}。`);
           entryInfo[attrName] = 1;
+          if (deduceConfig.overEntry === attrName) {
+            logger.log(`已达到停止条件：获得词条[${attrName}]。`);
+            const roomXlu = deduce.roomItemList.find((item) =>
+              /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
+            );
+            if (roomXlu) {
+              deduce.socket?.send(`get ${roomXlu.id}`);
+            }
+            deduce.socket?.send('xiulian');
+            process.exit();
+          }
         } else {
           deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} ban`);
-          logger.log(`获得新属性，属性不需要，放弃新属性：${attrName}。`);
+          logger.log(
+            deduceConfig.overEntry === attrName
+              ? `获得新属性，属性不需要(各词条未达到指定等级)，放弃新属性：${attrName}`
+              : `获得新属性，属性不需要，放弃新属性：${attrName}。`,
+          );
         }
       }
     });

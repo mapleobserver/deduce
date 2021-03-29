@@ -27,7 +27,6 @@ npx deduce
 
 ```yaml
 #config.yml
-
 userConfig:
   server: 1
   name: 测试工具
@@ -35,13 +34,14 @@ userConfig:
   password: testpassword
 
 deduceConfig:
-  type: 剑法
+  overEntry: 不灭
+  type: 内功
   entrys:
-    - 臂力
-    - 忽视对方防御
-    - 暴击
-    - 攻击百分比
-    - 嗜血
+    攻击: 50
+    防御: 50
+    命中: 50
+    招架: 50
+    不灭: 0
 
 accessories:
   food: true
@@ -59,7 +59,8 @@ accessories:
 #### deduConfig
 
 - type: 推演位置 内功|轻功|招架|拳脚|剑法|刀法|棍法|杖法|鞭法|暗器
-- entrys: 推演词条 [词条信息](#词条信息)
+- overEntry: 拿到某个词条后停止
+- entrys: 推演词条以及目标等级 [词条信息](#词条信息)
 
 #### accessories
 

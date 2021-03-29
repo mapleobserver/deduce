@@ -14,7 +14,11 @@ export interface UserConfig {
 
 export interface DeduceConfig {
   type: keyof DeduceType;
-  entrys: string[];
+  entrys: {
+    entry: string;
+    level: number;
+  }[];
+  overEntry?: string;
 }
 
 export interface Accessories {

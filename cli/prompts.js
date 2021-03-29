@@ -76,7 +76,60 @@ async function getEntrys(type) {
   return response;
 }
 
+async function getYesOrNo(message) {
+  const response = await prompts(
+    {
+      type: 'confirm',
+      name: 'choose',
+      message,
+      initial: false,
+    },
+    {
+      onCancel: () => process.exit(),
+    },
+  );
+
+  return response;
+}
+
+async function getOverEntry(entrys) {
+  const response = await prompts(
+    {
+      type: 'select',
+      name: 'entry',
+      message: '服务器？',
+      choices: entrys.map((entry) => ({ title: entry, value: entry })),
+      initial: 0,
+    },
+    {
+      onCancel: () => process.exit(),
+    },
+  );
+
+  return response;
+}
+
+async function getEntryLevel(entry) {
+  const response = await prompts(
+    {
+      type: 'number',
+      name: 'level',
+      message: `${entry}的等级？`,
+      min: 0,
+      initial: 0,
+    },
+    {
+      onCancel: () => process.exit(),
+    },
+  );
+
+  return response;
+}
+
 module.exports = {
   getConfig,
   getEntrys,
+  getYesOrNo,
+  getOverEntry,
+  getEntryLevel,
 };

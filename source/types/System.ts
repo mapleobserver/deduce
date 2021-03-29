@@ -23,7 +23,11 @@ export interface EntryInfo {
 
 export interface DeduceInfo {
   type: keyof DeduceType;
-  entrys: string[];
+  entrys: {
+    entry: string;
+    level: number;
+  }[];
+  overEntry?: string;
 }
 
 export interface SocketInterface extends EventEmitter {

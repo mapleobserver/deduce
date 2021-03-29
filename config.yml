@@ -3,16 +3,15 @@ userConfig:
   name: 测试工具
   account: testaccount
   password: testpassword
-
 deduceConfig:
-  type: 剑法
+  overEntry: 不灭
+  type: 内功
   entrys:
-    - 臂力
-    - 忽视对方防御
-    - 暴击
-    - 攻击百分比
-    - 嗜血
-
+    攻击: 50
+    防御: 50
+    命中: 50
+    招架: 50
+    不灭: 0
 accessories:
   food: true
   fy: true

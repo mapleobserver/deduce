@@ -29,7 +29,10 @@ function checkDeduceConfig(config: DeduceConfig): string {
   } else if (
     !config.entrys ||
     !Array.isArray(config.entrys) ||
-    config.entrys.some((entry) => !Object.keys(regexps[config.type]).includes(entry))
+    config.entrys.some(
+      (entry) =>
+        !Object.keys(regexps[config.type]).includes(entry.entry) || typeof entry.level !== 'number',
+    )
   ) {
     error += `参数错误：deduceConfig.entrys，deduceConfig.type值为[${
       config.type
