@@ -14,7 +14,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: '剑法',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe('');
@@ -25,7 +28,10 @@ describe('检查配置测试', () => {
       checkConfig(<Config>{
         deduceConfig: {
           type: '剑法',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe('缺少参数：userConfig。');
@@ -54,7 +60,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: '剑法',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe('参数错误：userConfig.server，该值为玩家服务器，可选值为：1 2 3 4 5。');
@@ -70,7 +79,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: '剑法',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe('参数错误：userConfig.name，该值为玩家角色姓名。');
@@ -86,7 +98,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: '剑法',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe('参数错误：userConfig.account，该值为玩家账号。');
@@ -102,7 +117,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: '剑法',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe('参数错误：userConfig.password，该值为玩家账号密码。');
@@ -119,7 +137,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: <keyof DeduceType>'剑',
-          entrys: ['臂力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '攻击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe(
@@ -138,7 +159,10 @@ describe('检查配置测试', () => {
         },
         deduceConfig: {
           type: '剑法',
-          entrys: ['力', '忽视对方防御', '暴击', '攻击百分比', '嗜血'],
+          entrys: [
+            { entry: '臂力', level: 10 },
+            { entry: '击百分比', level: 50 },
+          ],
         },
       }),
     ).toBe(
