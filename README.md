@@ -51,6 +51,8 @@ accessories:
   food: true
   fy: true
   xlu: true
+
+autoReLogin: true
 ```
 
 #### userConfig
@@ -71,6 +73,10 @@ accessories:
 - food: 续冰心丹 true|false
 - fy: 续飞翼剑 true|false
 - xlu: 续香炉 true|false
+
+#### autoReLogin
+
+是否自动重连
 
 ## 词条信息
 
