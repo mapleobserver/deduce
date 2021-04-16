@@ -18,6 +18,7 @@ const baseConfig = {
   const config = await prompts.getConfig();
   const { entrys } = await prompts.getEntrys(config.type);
   const entrysInfo = entrys.map((entry) => ({ entry, level: 0 }));
+  const autoReLogin = await prompts.getYesOrNo('是否自动重连？');
   const setOverEntry = await prompts.getYesOrNo('是否设置拿到某些词条后暂停？');
   if (setOverEntry.choose) {
     const { entry } = await prompts.getOverEntry(entrys);
@@ -36,6 +37,7 @@ const baseConfig = {
       entry.level = level;
     }
   }
+  baseConfig.autoReLogin = autoReLogin.choose;
   baseConfig.userConfig.server = config.server;
   baseConfig.userConfig.name = config.name;
   baseConfig.userConfig.account = config.account;

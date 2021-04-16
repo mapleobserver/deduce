@@ -1,7 +1,10 @@
 import { DeduceInterface } from '../types/System';
 
 export default (deduce: DeduceInterface) => (): void => {
-  const { flags, entryInfo } = deduce;
+  const { flags, entryInfo, config } = deduce;
+  if (!config.autoReLogin) {
+    return;
+  }
   flags.firstLevelUp = true;
   Object.keys(entryInfo).forEach((entryName: string) => {
     delete entryInfo[entryName];

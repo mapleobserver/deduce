@@ -23,6 +23,8 @@ export default class Deduce implements DeduceInterface {
     firstLevelUp: true,
   };
 
+  public config: Config;
+
   public logger: LoggerInterface = new Logger();
 
   public userConfig: UserConfig;
@@ -48,6 +50,7 @@ export default class Deduce implements DeduceInterface {
 
   constructor(configFile: string) {
     const config: Config = fileParse(configFile);
+    this.config = config;
     const error: string = checkConfig(config);
     if (error) {
       this.logger.error(error);

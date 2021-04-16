@@ -31,4 +31,5 @@ export interface Config {
   userConfig: UserConfig;
   deduceConfig: DeduceConfig;
   accessories?: Accessories;
+  autoReLogin?: boolean;
 }

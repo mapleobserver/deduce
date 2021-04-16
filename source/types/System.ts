@@ -2,7 +2,7 @@ import WebSocket from 'ws';
 import { EventEmitter } from 'events';
 import { DeduceType } from './Deduce';
 import { BasePackItem, BaseRoomItem } from './Message';
-import { WebSocketConfig, UserConfig, Accessories } from './Config';
+import { WebSocketConfig, UserConfig, Accessories, Config } from './Config';
 
 export interface Flags {
   init: boolean;
@@ -47,6 +47,7 @@ export interface LoggerInterface {
 
 export interface DeduceInterface {
   flags: Flags;
+  config: Config;
   logger: LoggerInterface;
   statuList: Set<string>;
   entryInfo: EntryInfo;
