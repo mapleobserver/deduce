@@ -6,7 +6,7 @@ import { getTypeCodeByName, findNameByAttr } from '../utils/entryTool';
 
 export default (deduce: DeduceInterface) => (data: Tip): void => {
   const msg: string = tipFormat(data.message);
-  const { flags, deduceConfig, logger, entryInfo, playerInfo } = deduce;
+  const { deduceConfig, logger, entryInfo, playerInfo } = deduce;
 
   if (!deduce.flags.begin) {
     return;
@@ -30,7 +30,16 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
   }
 
   if (/本次消耗会累计到下次使用|你的武功已经可以装备/.test(msg)) {
-    deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
+    const book = deduce.packItemList.find((item) =>
+      item.name.includes(<string>playerInfo.bookName),
+    );
+
+    if (!book) {
+      logger.warn('未在包裹里找到自创秘籍。');
+      deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
+    } else {
+      deduce.socket?.send(`packitem zc2 ${book.id}`);
+    }
   }
 
   if (/你的.+?没有这种功能/.test(msg)) {
@@ -76,6 +85,16 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
       process.exit();
     }
 
+    deduce.socket?.send(`zc typedel ${getTypeCodeByName(deduceConfig.type)}`);
+  }
+
+  if (msg.includes('将返回你消耗的')) {
+    const [, realUsedPot] = <RegExpMatchArray>msg.match(/将返回你消耗的\d+本武道书，(\d+)潜能/);
+    const enyryPot = Object.values(entryInfo).reduce(
+      (prev, cur) => prev + (((cur - 1) * cur) / 2) * 1e5,
+      0,
+    );
+    playerInfo.usedPot = Number(realUsedPot) - enyryPot;
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
   }
 
@@ -104,21 +123,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           );
         }
       });
-    if (flags.firstLevelUp) {
-      flags.firstLevelUp = false;
-      const book = deduce.packItemList.find((item) =>
-        item.name.includes(<string>playerInfo.bookName),
-      );
-
-      if (!book) {
-        logger.warn('未在包裹里找到自创秘籍。');
-        deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
-      } else {
-        deduce.socket?.send(`packitem zc2 ${book.id}`);
-      }
-    } else {
-      deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
-    }
+    deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
     const allLevelZero = deduceConfig.entrys.every((entry) => entry.level === 0);
     const allLevelOk = deduceConfig.entrys.every(
       (info) => info.entry in entryInfo && entryInfo[info.entry] >= info.level,

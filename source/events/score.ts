@@ -22,7 +22,6 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
     playerInfo.havePot = data.pot;
     if (
       playerInfo.usedPot >= 1e7 ||
-      entryInfoKeys.length === 0 ||
       entryInfoKeys.some((key) => entryInfo[key] * 100000 <= playerInfo.usedPot)
     ) {
       deduce.socket?.send('stopstate');
