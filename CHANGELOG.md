@@ -1,3 +1,12 @@
+## [0.5.2](https://github.com/wsmud/deduce/compare/v0.5.1...v0.5.2) (2021-04-22)
+
+
+### Features
+
+* 新增词条优先提升机制 ([4756375](https://github.com/wsmud/deduce/commit/4756375812382365c1aaaf981a0059d1aeed6830))
+
+
+
 ## [0.5.1](https://github.com/wsmud/deduce/compare/v0.5.0...v0.5.1) (2021-04-17)
 
 
