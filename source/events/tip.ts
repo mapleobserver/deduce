@@ -66,6 +66,12 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           logger.error(`获取属性信息失败，属性为：${attr}。`);
         } else {
           entryInfo[attrName] = Number(attrLevel[1]);
+          deduceConfig.entrys.forEach((entry) => {
+            const info = entry;
+            if (entry.entry === attrName && entry.level <= entryInfo[attrName]) {
+              info.prior = false;
+            }
+          });
         }
       });
     const allLevelZero = deduceConfig.entrys.every((entry) => entry.level === 0);
@@ -115,6 +121,12 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           const nowLevel = Number(attrLevel[2]);
           const attrNum = attr.split('-->')[1].replace(/.+?：|\((\d+)\)(?<=\))$/g, '');
           entryInfo[attrName] = nowLevel;
+          deduceConfig.entrys.forEach((entry) => {
+            const info = entry;
+            if (entry.entry === attrName && entry.level <= nowLevel) {
+              info.prior = false;
+            }
+          });
           playerInfo.usedPot -=
             (((nowLevel + lastLevel - 1) * (nowLevel - lastLevel)) / 2) * 100000;
           playerInfo.usedPot = playerInfo.usedPot < 0 ? 0 : playerInfo.usedPot;
