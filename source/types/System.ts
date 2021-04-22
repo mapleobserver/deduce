@@ -25,6 +25,7 @@ export interface DeduceInfo {
   entrys: {
     entry: string;
     level: number;
+    prior?: boolean;
   }[];
   overEntry?: string;
 }

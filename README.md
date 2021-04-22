@@ -66,7 +66,10 @@ autoReLogin: true
 
 - type: 推演位置 内功|轻功|招架|拳脚|剑法|刀法|棍法|杖法|鞭法|暗器
 - overEntry: 拿到某个词条后停止
-- entrys: 推演词条以及目标等级 [词条信息](#词条信息)
+- entrys
+  - entry 词条 [词条信息](#词条信息)
+  - level 词条等级 0 级为无限制
+  - prior 词条优先提升及获取
 
 #### accessories
 

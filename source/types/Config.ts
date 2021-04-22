@@ -17,6 +17,7 @@ export interface DeduceConfig {
   entrys: {
     entry: string;
     level: number;
+    prior?: boolean;
   }[];
   overEntry?: string;
 }

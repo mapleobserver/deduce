@@ -37,6 +37,13 @@ const baseConfig = {
       entry.level = level;
     }
   }
+  const setPiror = await prompts.getYesOrNo('是否设置词条优先？');
+  if (setPiror) {
+    for (const entry of entrysInfo) {
+      const { choose } = await prompts.getYesOrNo(`是否将${entry.entry}设置为优先词条？`);
+      entry.prior = choose;
+    }
+  }
   baseConfig.autoReLogin = autoReLogin.choose;
   baseConfig.userConfig.server = config.server;
   baseConfig.userConfig.name = config.name;
