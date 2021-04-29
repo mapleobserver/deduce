@@ -169,13 +169,28 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           if (entry !== attrName) {
             return false;
           }
-          const priors = deduceConfig.entrys.map((_entry) => (_entry.prior ? _entry.entry : ''));
+          const priors = deduceConfig.entrys
+            .sort((a, b) => b.level - a.level)
+            .map((_entry) => (_entry.prior ? _entry.entry : ''))
+            .filter((e) => e !== '');
+          const entryIndex = priors.indexOf(attrName);
+
           if (
-            !priors.includes(attrName) &&
+            entryIndex === -1 &&
             !priors.every((priorEntry) => Object.keys(entryInfo).includes(priorEntry))
           ) {
             return false;
           }
+
+          if (
+            entryIndex > 0 &&
+            !priors
+              .slice(0, entryIndex)
+              .every((priorEntry) => Object.keys(entryInfo).includes(priorEntry))
+          ) {
+            return false;
+          }
+
           const allLevelOk = deduceConfig.entrys.every((info) =>
             deduceConfig.overEntry === info.entry
               ? true

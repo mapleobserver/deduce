@@ -35,7 +35,11 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
       ) {
         deduce.socket?.send('stopstate');
       }
-      return;
+      if (
+        !priorEntrys.every((e) => entryInfoKeys.includes(e.entry) && entryInfo[e.entry] >= e.level)
+      ) {
+        return;
+      }
     }
 
     if (
