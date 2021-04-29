@@ -1,3 +1,18 @@
+## [0.5.3](https://github.com/wsmud/deduce/compare/v0.5.2...v0.5.3) (2021-04-29)
+
+
+### Bug Fixes
+
+* 修复设置多个优先词条时引起的bug ([9db4f06](https://github.com/wsmud/deduce/commit/9db4f066c8b6b4c7d44014c0e795d68a4b95c22c))
+* 修复优先拿词条未正常生效的问题 ([5954f8f](https://github.com/wsmud/deduce/commit/5954f8fb99322cfe4c81d0977f9d81bcbb133ce5))
+
+
+### Features
+
+* 增加多个优先词条时按等级排列优先选取 ([842556a](https://github.com/wsmud/deduce/commit/842556a5e4c3e62a311e3a5b7ccb8db6c4000a8e))
+
+
+
 ## [0.5.2](https://github.com/wsmud/deduce/compare/v0.5.1...v0.5.2) (2021-04-22)
 
 
