@@ -1,3 +1,12 @@
+## [0.5.4](https://github.com/wsmud/deduce/compare/v0.5.3...v0.5.4) (2021-05-02)
+
+
+### Bug Fixes
+
+* 修复未能精确提升优先词条的问题 ([846adef](https://github.com/wsmud/deduce/commit/846adef735258bf6a72ba1d65614af073ad80b56))
+
+
+
 ## [0.5.3](https://github.com/wsmud/deduce/compare/v0.5.2...v0.5.3) (2021-04-29)
 
 
