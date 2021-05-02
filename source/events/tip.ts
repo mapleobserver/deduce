@@ -100,7 +100,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
       (prev, cur) => prev + (((cur - 1) * cur) / 2) * 1e5,
       0,
     );
-    playerInfo.usedPot = Number(realUsedPot) - enyryPot;
+    playerInfo.usedPot = Number(realUsedPot) - enyryPot - 100000;
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
   }
 
@@ -165,15 +165,16 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         logger.error(`获取属性名失败，已放弃，属性为：${attr}。`);
         deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} ban`);
       } else {
+        const priors = deduceConfig.entrys
+          .sort((a, b) => b.level - a.level)
+          .map((_entry) => (_entry.prior ? _entry.entry : ''))
+          .filter((entryName) => entryName !== '');
+        const entryIndex = priors.indexOf(attrName);
+
         const isWant: boolean = deduceConfig.entrys.some(({ entry }) => {
           if (entry !== attrName) {
             return false;
           }
-          const priors = deduceConfig.entrys
-            .sort((a, b) => b.level - a.level)
-            .map((_entry) => (_entry.prior ? _entry.entry : ''))
-            .filter((e) => e !== '');
-          const entryIndex = priors.indexOf(attrName);
 
           if (
             entryIndex === -1 &&
@@ -191,14 +192,14 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
             return false;
           }
 
-          const allLevelOk = deduceConfig.entrys.every((info) =>
-            deduceConfig.overEntry === info.entry
-              ? true
-              : info.entry in entryInfo && entryInfo[info.entry] >= info.level,
-          );
           if (deduceConfig.overEntry === attrName) {
-            return !!allLevelOk;
+            return deduceConfig.entrys.every((info) =>
+              deduceConfig.overEntry === info.entry
+                ? true
+                : info.entry in entryInfo && entryInfo[info.entry] >= info.level,
+            );
           }
+
           return true;
         });
 
@@ -219,11 +220,16 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           }
         } else {
           deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} ban`);
-          logger.log(
-            deduceConfig.overEntry === attrName
-              ? `获得新属性，属性不需要(各词条未达到指定等级)，放弃新属性：${attrName}`
-              : `获得新属性，属性不需要，放弃新属性：${attrName}。`,
-          );
+          let logStr = '';
+          if (deduceConfig.overEntry === attrName) {
+            logStr = '(各词条未达到指定等级)';
+          } else if (priors.includes(attrName)) {
+            logStr = deduceConfig.entrys.some((info) => !info.prior && info.entry === attrName)
+              ? '(优先获取词条未获取完毕)'
+              : '(未满足优先获取条件)';
+          }
+
+          logger.log(`获得新属性，属性不需要${logStr}，放弃新属性：${attrName}。`);
         }
       }
     });
