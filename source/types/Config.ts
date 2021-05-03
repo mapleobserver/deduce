@@ -33,4 +33,5 @@ export interface Config {
   deduceConfig: DeduceConfig;
   accessories?: Accessories;
   autoReLogin?: boolean;
+  checkStatusOnLevelUp?: boolean;
 }

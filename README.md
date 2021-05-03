@@ -53,6 +53,7 @@ accessories:
   xlu: true
 
 autoReLogin: true
+checkStatusOnLevelUp: false
 ```
 
 #### userConfig
@@ -80,6 +81,10 @@ autoReLogin: true
 #### autoReLogin
 
 是否自动重连
+
+#### checkStatusOnLevelUp
+
+设置为 true 时，续 buff 将在词条升级时，否则将在 buff 移除时立刻续。
 
 ## 词条信息
 

@@ -19,6 +19,9 @@ const baseConfig = {
   const { entrys } = await prompts.getEntrys(config.type);
   const entrysInfo = entrys.map((entry) => ({ entry, level: 0 }));
   const autoReLogin = await prompts.getYesOrNo('是否自动重连？');
+  const checkStatusOnLevelUp = await prompts.getYesOrNo(
+    '是否设置续buff时机为词条升级时，否则将在buff移除时立刻续。',
+  );
   const setOverEntry = await prompts.getYesOrNo('是否设置拿到某些词条后暂停？');
   if (setOverEntry.choose) {
     const { entry } = await prompts.getOverEntry(entrys);
@@ -38,13 +41,14 @@ const baseConfig = {
     }
   }
   const setPiror = await prompts.getYesOrNo('是否设置词条优先？');
-  if (setPiror) {
+  if (setPiror.choose) {
     for (const entry of entrysInfo) {
       const { choose } = await prompts.getYesOrNo(`是否将${entry.entry}设置为优先词条？`);
       entry.prior = choose;
     }
   }
   baseConfig.autoReLogin = autoReLogin.choose;
+  baseConfig.checkStatusOnLevelUp = checkStatusOnLevelUp.choose;
   baseConfig.userConfig.server = config.server;
   baseConfig.userConfig.name = config.name;
   baseConfig.userConfig.account = config.account;

@@ -1,12 +1,12 @@
-import { checkXluStatu } from '../utils/checkStatus';
 import { DeduceInterface } from '../types/System';
 import { Tip } from '../types/Message';
 import { entryFormat, tipFormat } from '../utils/formatTool';
 import { getTypeCodeByName, findNameByAttr } from '../utils/entryTool';
+import { checkFyStatu, checkXluStatu, checkFoodStatu } from '../utils/checkStatus';
 
 export default (deduce: DeduceInterface) => (data: Tip): void => {
   const msg: string = tipFormat(data.message);
-  const { deduceConfig, logger, entryInfo, playerInfo } = deduce;
+  const { config, deduceConfig, logger, entryInfo, playerInfo } = deduce;
 
   if (!deduce.flags.begin) {
     return;
@@ -37,6 +37,11 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
     if (!book) {
       logger.warn('未在包裹里找到自创秘籍。');
       deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
+      if (config.checkStatusOnLevelUp) {
+        checkXluStatu(deduce);
+        checkFoodStatu(deduce);
+        checkFyStatu(deduce);
+      }
     } else {
       deduce.socket?.send(`packitem zc2 ${book.id}`);
     }
@@ -101,6 +106,13 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
       0,
     );
     playerInfo.usedPot = Number(realUsedPot) - enyryPot - 100000;
+
+    if (config.checkStatusOnLevelUp) {
+      checkXluStatu(deduce);
+      checkFoodStatu(deduce);
+      checkFyStatu(deduce);
+    }
+
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
   }
 
@@ -135,6 +147,13 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
           );
         }
       });
+
+    if (config.checkStatusOnLevelUp) {
+      checkXluStatu(deduce);
+      checkFoodStatu(deduce);
+      checkFyStatu(deduce);
+    }
+
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
     const allLevelZero = deduceConfig.entrys.every((entry) => entry.level === 0);
     const allLevelOk = deduceConfig.entrys.every(
@@ -233,6 +252,13 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         }
       }
     });
+
+    if (config.checkStatusOnLevelUp) {
+      checkXluStatu(deduce);
+      checkFoodStatu(deduce);
+      checkFyStatu(deduce);
+    }
+
     deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
   }
 };
