@@ -1,3 +1,12 @@
+# [0.6.0](https://github.com/wsmud/deduce/compare/v0.5.4...v0.6.0) (2021-05-03)
+
+
+### Features
+
+* 增加续buff时机配置 ([5464104](https://github.com/wsmud/deduce/commit/5464104b49a617d4017d9e43fd53d36ab58eec99))
+
+
+
 ## [0.5.4](https://github.com/wsmud/deduce/compare/v0.5.3...v0.5.4) (2021-05-02)
 
 
