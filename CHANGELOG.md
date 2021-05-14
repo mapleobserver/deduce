@@ -1,3 +1,12 @@
+## [0.6.3](https://github.com/wsmud/deduce/compare/v0.6.2...v0.6.3) (2021-05-14)
+
+
+### Bug Fixes
+
+* fix type ([2d92719](https://github.com/wsmud/deduce/commit/2d927190029213816adc5e559dde13e4a4020611))
+
+
+
 ## [0.6.2](https://github.com/wsmud/deduce/compare/v0.6.1...v0.6.2) (2021-05-14)
 
 
