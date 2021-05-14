@@ -1,3 +1,12 @@
+## [0.6.2](https://github.com/wsmud/deduce/compare/v0.6.1...v0.6.2) (2021-05-14)
+
+
+### Features
+
+* 新增记录已推演潜能 ([db83f1d](https://github.com/wsmud/deduce/commit/db83f1dbffd01617cfaffa4f389ecb81b776df9c))
+
+
+
 ## [0.6.1](https://github.com/wsmud/deduce/compare/v0.6.0...v0.6.1) (2021-05-03)
 
 
