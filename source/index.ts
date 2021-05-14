@@ -35,6 +35,7 @@ export default class Deduce implements DeduceInterface {
   public playerInfo: PlayerInfo = {
     havePot: 0,
     usedPot: 0,
+    realUsedPot: 0,
   };
 
   public accessories: Accessories;
