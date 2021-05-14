@@ -8,13 +8,13 @@ async function getConfig() {
         type: 'text',
         name: 'account',
         message: '账号？',
-        validate: (value) => (/^[a-z0-9]+$/.test(value) ? true : '账号输入错误，请重新输入。'),
+        validate: (value) => (/^[a-z0-9]+$/.test(value) ? true : '账号输入错误，请重新输入'),
       },
       {
         type: 'password',
         name: 'password',
         message: '密码？',
-        validate: (value) => (/^[\S]+$/.test(value) ? true : '密码输入错误，请重新输入。'),
+        validate: (value) => (/^[\S]+$/.test(value) ? true : '密码输入错误，请重新输入'),
       },
       {
         type: 'select',

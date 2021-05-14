@@ -13,6 +13,7 @@ export interface PlayerInfo {
   id?: string;
   havePot: number;
   usedPot: number;
+  realUsedPot: number;
   bookName?: string;
 }
 

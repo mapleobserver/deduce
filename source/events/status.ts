@@ -8,7 +8,7 @@ export default (deduce: DeduceInterface) => (data: Status): void => {
     switch (data.action) {
       case 'add':
         deduce.statuList.add(data.sid);
-        deduce.logger.log(`状态新增：${data.sid}。`);
+        deduce.logger.log(`状态新增：${data.sid}`);
         break;
       case 'remove':
         deduce.statuList.delete(data.sid);
@@ -17,7 +17,7 @@ export default (deduce: DeduceInterface) => (data: Status): void => {
           if (accessories.xlu && data.sid === 'xlu') checkXluStatu(deduce);
           if (accessories.food && data.sid === 'food') checkFoodStatu(deduce);
         }
-        deduce.logger.log(`状态移除：${data.sid}。`);
+        deduce.logger.log(`状态移除：${data.sid}`);
         break;
       default:
     }

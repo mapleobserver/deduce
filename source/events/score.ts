@@ -7,7 +7,7 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
   if (!flags.init) {
     flags.init = true;
     playerInfo.havePot = data.pot;
-    deduce.logger.log(`获取剩余潜能成功：${playerInfo.havePot}。`);
+    deduce.logger.log(`获取剩余潜能成功：${playerInfo.havePot}`);
     deduce.socket?.send('stopstate,pack');
     setTimeout(() => {
       flags.begin = true;
@@ -20,6 +20,7 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
     const entryInfoKeys = Object.keys(entryInfo);
     const priorEntrys = deduceConfig.entrys.filter((entry) => entry.prior);
     playerInfo.usedPot += playerInfo.havePot - data.pot;
+    playerInfo.realUsedPot += playerInfo.havePot - data.pot;
     playerInfo.havePot = data.pot;
     if (
       priorEntrys.length > 0 && deduceConfig.type === '内功'
@@ -42,10 +43,7 @@ export default (deduce: DeduceInterface) => (data: Score): void => {
       }
     }
 
-    if (
-      playerInfo.usedPot >= 1e7 ||
-      entryInfoKeys.some((key) => entryInfo[key] * 100000 <= playerInfo.usedPot)
-    ) {
+    if (entryInfoKeys.some((key) => entryInfo[key] * 100000 <= playerInfo.usedPot)) {
       deduce.socket?.send('stopstate');
     }
   }

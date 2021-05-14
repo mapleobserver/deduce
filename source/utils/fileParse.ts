@@ -5,7 +5,7 @@ import { existsSync, readFileSync, realpathSync } from 'fs';
 
 export default function filePsrse(path: string): any {
   if (!existsSync(path)) {
-    throw new Error('未找到配置文件。');
+    throw new Error('未找到配置文件');
   }
   const ext: string = extname(path);
   const file = readFileSync(realpathSync(path)).toString();
@@ -19,10 +19,10 @@ export default function filePsrse(path: string): any {
       data = load(file) as any;
       break;
     default:
-      throw new TypeError('不受支持的配置文件类型。');
+      throw new TypeError('不受支持的配置文件类型');
   }
   if (Object.prototype.toString.call(data) !== '[object Object]') {
-    throw new TypeError('配置文件错误。');
+    throw new TypeError('配置文件错误');
   }
   return data;
 }

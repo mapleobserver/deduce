@@ -20,7 +20,7 @@ const baseConfig = {
   const entrysInfo = entrys.map((entry) => ({ entry, level: 0 }));
   const autoReLogin = await prompts.getYesOrNo('是否自动重连？');
   const checkStatusOnLevelUp = await prompts.getYesOrNo(
-    '是否设置续buff时机为词条升级时，否则将在buff移除时立刻续。',
+    '是否设置续buff时机为词条升级时，否则将在buff移除时立刻续',
   );
   const setOverEntry = await prompts.getYesOrNo('是否设置拿到某些词条后暂停？');
   if (setOverEntry.choose) {

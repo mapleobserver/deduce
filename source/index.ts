@@ -72,11 +72,11 @@ export default class Deduce implements DeduceInterface {
     const wsUrl: string | null = await getServer(this.userConfig.server);
     const token: string | null = await getToken(this.userConfig.account, this.userConfig.password);
     if (!wsUrl || !token) {
-      this.logger.error(`获取${!wsUrl ? '服务器信息' : '用户登陆凭证'}失败。`);
+      this.logger.error(`获取${!wsUrl ? '服务器信息' : '用户登陆凭证'}失败`);
       process.exit();
     }
-    this.logger.log(`获取服务器信息成功：${wsUrl}。`);
-    this.logger.log(`获取用户登陆凭证成功：${token}。`);
+    this.logger.log(`获取服务器信息成功：${wsUrl}`);
+    this.logger.log(`获取用户登陆凭证成功：${token}`);
     this.socket = new Socket({ wsUrl, token });
     this.loadEvents();
   }

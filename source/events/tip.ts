@@ -35,7 +35,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
     );
 
     if (!book) {
-      logger.warn('未在包裹里找到自创秘籍。');
+      logger.warn('未在包裹里找到自创秘籍');
       deduce.socket?.send(`zc typelv ${getTypeCodeByName(deduceConfig.type)}`);
       if (config.checkStatusOnLevelUp) {
         if (accessories.xlu) checkXluStatu(deduce);
@@ -57,7 +57,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
       .split('\n\n')
       .find((type) => type.includes(`可装备为${deduceConfig.type}`));
     if (!deduceTypeInfo) {
-      logger.error('未找到推演位置信息。');
+      logger.error('未找到推演位置信息');
       process.exit();
     }
 
@@ -68,7 +68,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         const attrName = findNameByAttr(deduce.deduceConfig.type, entryFormat(attr));
         const attrLevel = attr.match(/.+\((\d+)\)(?<=\))$/);
         if (!attrName || !attrLevel) {
-          logger.error(`获取属性信息失败，属性为：${attr}。`);
+          logger.error(`获取属性信息失败，属性为：${attr}`);
         } else {
           entryInfo[attrName] = Number(attrLevel[1]);
           deduceConfig.entrys.forEach((entry) => {
@@ -84,7 +84,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
       (info) => info.entry in entryInfo && entryInfo[info.entry] >= info.level,
     );
     if (!allLevelZero && allLevelOk) {
-      logger.log(`已达到停止条件：词条均达到指定等级。`);
+      logger.log(`已达到停止条件：词条均达到指定等级`);
       const roomXlu = deduce.roomItemList.find((item) =>
         /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
       );
@@ -101,12 +101,14 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
 
   if (msg.includes('将返回你消耗的')) {
     const [, realUsedPot] = <RegExpMatchArray>msg.match(/将返回你消耗的\d+本武道书，(\d+)潜能/);
+    playerInfo.realUsedPot = Number(realUsedPot);
     const enyryPot = Object.values(entryInfo).reduce(
       (prev, cur) => prev + (((cur - 1) * cur) / 2) * 1e5,
       0,
     );
-    playerInfo.usedPot = Number(realUsedPot) - enyryPot - 100000;
+    playerInfo.usedPot = playerInfo.realUsedPot - enyryPot - 100000;
 
+    logger.log(`获取当前已推演潜能成功：${playerInfo.realUsedPot}`);
     if (config.checkStatusOnLevelUp) {
       if (accessories.xlu) checkXluStatu(deduce);
       if (accessories.food) checkFoodStatu(deduce);
@@ -127,7 +129,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
         );
         const attrLevel = attr.match(/\((\d+)\)-->.+?\((\d+)\)(?<=\))$/);
         if (!attrName || !attrLevel || attrLevel.length < 3) {
-          logger.error(`获取属性名失败，属性为：${attr.split('-->')[0]}。`);
+          logger.error(`获取属性名失败，属性为：${attr.split('-->')[0]}`);
         } else {
           const lastLevel = Number(attrLevel[1]);
           const nowLevel = Number(attrLevel[2]);
@@ -139,11 +141,15 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
               info.prior = false;
             }
           });
-          playerInfo.usedPot -=
-            (((nowLevel + lastLevel - 1) * (nowLevel - lastLevel)) / 2) * 100000;
-          playerInfo.usedPot = playerInfo.usedPot < 0 ? 0 : playerInfo.usedPot;
+
+          const enyryPot = Object.values(entryInfo).reduce(
+            (prev, cur) => prev + (((cur - 1) * cur) / 2) * 1e5,
+            0,
+          );
+          playerInfo.usedPot = playerInfo.realUsedPot - enyryPot - 100000;
+
           logger.log(
-            `${attrName}属性由${lastLevel}级升级到${nowLevel}级，当前属性值：${attrNum}，当前剩余潜能：${playerInfo.havePot}。`,
+            `${attrName}属性由${lastLevel}级升级到${nowLevel}级，当前属性值：${attrNum}，当前已推演潜能：${playerInfo.realUsedPot}，当前剩余潜能：${playerInfo.havePot}`,
           );
         }
       });
@@ -161,7 +167,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
     );
 
     if (!allLevelZero && allLevelOk) {
-      logger.log(`已达到停止条件：词条均达到指定等级。`);
+      logger.log(`已达到停止条件：词条均达到指定等级`);
       const roomXlu = deduce.roomItemList.find((item) =>
         /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
       );
@@ -181,7 +187,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
     attrList.forEach((attr) => {
       const attrName = findNameByAttr(deduce.deduceConfig.type, entryFormat(attr));
       if (!attrName) {
-        logger.error(`获取属性名失败，已放弃，属性为：${attr}。`);
+        logger.error(`获取属性名失败，已放弃，属性为：${attr}`);
         deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} ban`);
       } else {
         const priors = deduceConfig.entrys
@@ -224,10 +230,10 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
 
         if (isWant) {
           deduce.socket?.send(`zc prop ${getTypeCodeByName(deduceConfig.type)} add`);
-          logger.log(`获得新属性，属性为所需，添加新属性：${attrName}。`);
+          logger.log(`获得新属性，属性为所需，添加新属性：${attrName}`);
           entryInfo[attrName] = 1;
           if (deduceConfig.overEntry === attrName) {
-            logger.log(`已达到停止条件：获得词条[${attrName}]。`);
+            logger.log(`已达到停止条件：获得词条[${attrName}]`);
             const roomXlu = deduce.roomItemList.find((item) =>
               /香炉|沉香木鼎|麝香铜鼎|龙涎香熏|龙脑古鼎/.test(item.name),
             );
@@ -248,7 +254,7 @@ export default (deduce: DeduceInterface) => (data: Tip): void => {
               : '(未满足优先获取条件)';
           }
 
-          logger.log(`获得新属性，属性不需要${logStr}，放弃新属性：${attrName}。`);
+          logger.log(`获得新属性，属性不需要${logStr}，放弃新属性：${attrName}`);
         }
       }
     });
