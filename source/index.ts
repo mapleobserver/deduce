@@ -22,6 +22,8 @@ export default class Deduce implements DeduceInterface {
     begin: false,
   };
 
+  public config: Config;
+
   public logger: LoggerInterface = new Logger();
 
   public userConfig: UserConfig;
@@ -33,6 +35,7 @@ export default class Deduce implements DeduceInterface {
   public playerInfo: PlayerInfo = {
     havePot: 0,
     usedPot: 0,
+    realUsedPot: 0,
   };
 
   public accessories: Accessories;
@@ -47,6 +50,7 @@ export default class Deduce implements DeduceInterface {
 
   constructor(configFile: string) {
     const config: Config = fileParse(configFile);
+    this.config = config;
     const error: string = checkConfig(config);
     if (error) {
       this.logger.error(error);
@@ -69,11 +73,11 @@ export default class Deduce implements DeduceInterface {
     const wsUrl: string | null = await getServer(this.userConfig.server);
     const token: string | null = await getToken(this.userConfig.account, this.userConfig.password);
     if (!wsUrl || !token) {
-      this.logger.error(`获取${!wsUrl ? '服务器信息' : '用户登陆凭证'}失败。`);
+      this.logger.error(`获取${!wsUrl ? '服务器信息' : '用户登陆凭证'}失败`);
       process.exit();
     }
-    this.logger.log(`获取服务器信息成功：${wsUrl}。`);
-    this.logger.log(`获取用户登陆凭证成功：${token}。`);
+    this.logger.log(`获取服务器信息成功：${wsUrl}`);
+    this.logger.log(`获取用户登陆凭证成功：${token}`);
     this.socket = new Socket({ wsUrl, token });
     this.loadEvents();
   }

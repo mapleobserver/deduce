@@ -14,7 +14,12 @@ export interface UserConfig {
 
 export interface DeduceConfig {
   type: keyof DeduceType;
-  entrys: string[];
+  entrys: {
+    entry: string;
+    level: number;
+    prior?: boolean;
+  }[];
+  overEntry?: string;
 }
 
 export interface Accessories {
@@ -27,4 +32,6 @@ export interface Config {
   userConfig: UserConfig;
   deduceConfig: DeduceConfig;
   accessories?: Accessories;
+  autoReLogin?: boolean;
+  checkStatusOnLevelUp?: boolean;
 }

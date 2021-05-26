@@ -16,25 +16,16 @@
 
 - 安装 [nodejs](http://nodejs.cn/download/)
 
-```
+```sh
 npm i @wsmud/deduce
-```
-
-- 编写启动脚本
-
-```
-//start.js
-
-const wsmudDeduce = require('@wsmud/deduce');
-
-new wsmudDeduce('config.yml');
+npx deduce
 ```
 
 ## 配置文件
 
 支持格式为 json|yml|yaml
 
-```
+```yaml
 #config.yml
 
 userConfig:
@@ -44,18 +35,25 @@ userConfig:
   password: testpassword
 
 deduceConfig:
-  type: 剑法
+  overEntry: 不灭
+  type: 内功
   entrys:
-    - 臂力
-    - 忽视对方防御
-    - 暴击
-    - 攻击百分比
-    - 嗜血
+    - entry: 攻击
+      level: 50
+    - entry: 防御
+      level: 50
+    - entry: 命中
+      level: 50
+    - entry: 招架
+      level: 50
 
 accessories:
   food: true
   fy: true
   xlu: true
+
+autoReLogin: true
+checkStatusOnLevelUp: false
 ```
 
 #### userConfig
@@ -68,13 +66,25 @@ accessories:
 #### deduConfig
 
 - type: 推演位置 内功|轻功|招架|拳脚|剑法|刀法|棍法|杖法|鞭法|暗器
-- entrys: 推演词条 [词条信息](#词条信息)
+- overEntry: 拿到某个词条后停止
+- entrys
+  - entry 词条 [词条信息](#词条信息)
+  - level 词条等级 0 级为无限制
+  - prior 词条优先提升及获取
 
 #### accessories
 
 - food: 续冰心丹 true|false
 - fy: 续飞翼剑 true|false
 - xlu: 续香炉 true|false
+
+#### autoReLogin
+
+是否自动重连
+
+#### checkStatusOnLevelUp
+
+设置为 true 时，续 buff 将在词条升级时，否则将在 buff 移除时立刻续。
 
 ## 词条信息
 
@@ -105,7 +115,7 @@ accessories:
 ## 招架词条
 
 ```
-攻击 防御 命中 招架 躲闪 臂力 根骨 身法 悟性 暴击伤害 内力消耗 防御百分比 命中百分比 招架百分比 躲闪百分比 气血百分比 练习效率 学习效率 打坐效率 反击 灵动 专注 乾坤 纵横
+攻击 防御 命中 招架 躲闪 臂力 根骨 身法 悟性 暴击伤害 内力消耗 防御百分比 命中百分比 招架百分比 躲闪百分比 气血百分比 练习效率 学习效率 打坐效率 反击 乾坤 纵横
 ```
 
 ## 兵器词条

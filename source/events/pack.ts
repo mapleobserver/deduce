@@ -2,11 +2,11 @@ import { DeduceInterface } from '../types/System';
 import { BasePackItem, Pack } from '../types/Message';
 
 export default (deduce: DeduceInterface) => (data: Pack): void => {
-  const { packItemList: packList } = deduce;
+  const { packItemList } = deduce;
   if (data.items) {
-    packList.length = 0;
+    packItemList.length = 0;
     data.items.forEach((item: BasePackItem) =>
-      packList.push({
+      packItemList.push({
         id: item.id,
         count: item.count,
         name: item.name,
@@ -15,9 +15,9 @@ export default (deduce: DeduceInterface) => (data: Pack): void => {
       }),
     );
     if (deduce.accessories.fy) {
-      const fy = data.eqs.find((eq) => eq.name.includes('飞翼剑'));
+      const fy = data.eqs.find((eq) => eq !== null && eq.name.includes('飞翼剑'));
       if (fy) {
-        packList.push({
+        packItemList.push({
           id: fy.id,
           name: fy.name,
           count: 1,
@@ -28,22 +28,22 @@ export default (deduce: DeduceInterface) => (data: Pack): void => {
     }
   }
   if (data.remove) {
-    const packItem = packList.find((item: BasePackItem) => item.id === data.id);
-    const packItemIndex = packList.findIndex((item: BasePackItem) => item.id === data.id);
+    const packItem = packItemList.find((item: BasePackItem) => item.id === data.id);
+    const packItemIndex = packItemList.findIndex((item: BasePackItem) => item.id === data.id);
     if (packItem) {
       if (data.remove >= packItem?.count) {
-        packList.splice(packItemIndex, 1);
+        packItemList.splice(packItemIndex, 1);
       } else {
         packItem.count -= 1;
       }
     }
   }
   if (data.count && data.id) {
-    const packItem = packList.find((item: BasePackItem) => item.id === data.id);
+    const packItem = packItemList.find((item: BasePackItem) => item.id === data.id);
     if (packItem) {
       packItem.count += 1;
     } else {
-      packList.push({
+      packItemList.push({
         id: data.id,
         count: data.count,
         name: data.name,

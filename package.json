@@ -1,17 +1,21 @@
 {
   "name": "@wsmud/deduce",
-  "version": "0.2.36",
+  "version": "0.6.3",
   "description": "武神传说科学推演",
   "main": "bundle/index.cjs.js",
   "module": "bundle/index.es.js",
   "types": "bundle/index.d.ts",
+  "bin": {
+    "deduce": "cli/cli.js"
+  },
   "license": "MIT",
   "author": {
     "name": "line",
     "email": "line@live.com"
   },
   "files": [
-    "bundle/"
+    "bundle/",
+    "cli/"
   ],
   "scripts": {
     "lint": "yarn lint:eslint && yarn lint:prettier",
@@ -42,6 +46,7 @@
     "axios": "^0.21.1",
     "js-yaml": "^4.0.0",
     "json5": "^2.2.0",
+    "prompts": "^2.4.0",
     "qs": "^6.9.6",
     "winston": "^3.3.3",
     "ws": "^7.4.4"

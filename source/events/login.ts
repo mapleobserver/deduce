@@ -7,5 +7,5 @@ export default (deduce: DeduceInterface) => (data: Login): void => {
   flags.begin = false;
   deduce.socket?.send('score');
   playerInfo.id = data.id;
-  deduce.logger.log(`登陆成功，角色id：${data.id}。`);
+  deduce.logger.log(`登陆成功，角色id：${data.id}`);
 };

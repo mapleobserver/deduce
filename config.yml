@@ -3,17 +3,27 @@ userConfig:
   name: 测试工具
   account: testaccount
   password: testpassword
-
 deduceConfig:
-  type: 剑法
+  type: 内功
   entrys:
-    - 臂力
-    - 忽视对方防御
-    - 暴击
-    - 攻击百分比
-    - 嗜血
-
+    - entry: 臂力
+      level: 0
+      prior: false
+    - entry: 攻击百分比
+      level: 0
+      prior: false
+    - entry: 绝招冷却时间百分比
+      level: 230
+      prior: true
+    - entry: 最终伤害
+      level: 0
+      prior: false
+    - entry: 剑心
+      level: 160
+      prior: true
 accessories:
   food: true
   fy: true
   xlu: true
+autoReLogin: true
+checkStatusOnLevelUp: false
